@@ -1,0 +1,22 @@
+<div class="side-container"><div class="side-inner">
+
+	<%assign var="firstChildClass" value=" first-child"%>
+    <%if (!preg_match("/<img/is",$info.leadbody) && $info.leadbody|count_characters < 300) || !preg_match("/市场活动/is",$info.tags)%>
+		<div class="story-box">
+			<h2 class="box-title"><a>编者按</a></h2>
+			<div class="top10"><%$info.leadbody|replace:"<br>":""%></div>
+			<%assign var="firstChildClass" value=" last-child"%>
+		</div>
+    <%/if%>
+
+
+	<%if $smarty.get.ad != "no" && $noAd != "true"%>
+		<script type="text/javascript">
+			document.write (writeAdNew({
+				devices: ['PC','PadApp','PadWeb'],
+				pattern:'MPU',
+				position:'Right1'
+			}));
+		</script>
+	<%/if%>
+</div></div>

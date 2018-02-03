@@ -1,0 +1,356 @@
+<!--search section-->
+<div class="container search-widget-container visible-sm visible-md visible-lg visible-xs">
+<div class="row" >
+ <div class="detailListContainer col-md-12" >
+    <form action="#" class="xs-no-border xs-no-side-space xs-no-top-space xs-section-margin-bottom-5">
+    <fieldset>
+    <div class="searchContainer clearfloat" >
+    <section class="col-xs-4 col-sm-4 col-md-2 col-lg-1" class="floatClass sale" >
+        <select  id="property-nature" name="property-nature" >
+        <option value="forSale"<%if $searchedProperty.propertyNature == '0'%> selected='selected'<%/if%>><%$propertytDataName.For_Sale%></option>
+        <option value="forRent"<%if $searchedProperty.propertyNature == '1'%> selected='selected'<%/if%>><%$propertytDataName.For_Rent%></option>
+        </select>
+    </section>
+
+
+
+    <section class="col-xs-4 col-md-1 col-lg-1" class="floatClass beds" >
+        <select  id="bed-num" name="bed-num">
+        <option value=""<%if $searchedProperty.bedNum == ''%> selected='selected'<%/if%>><%$propertytDataName.Beds%></option>
+        <option value="0"<%if $searchedProperty.bedNum == '0'%> selected='selected'<%/if%>>0+</option>
+        <option value="1"<%if $searchedProperty.bedNum == '1'%> selected='selected'<%/if%>>1+</option>
+        <option value="2"<%if $searchedProperty.bedNum == '2'%> selected='selected'<%/if%>>2+</option>
+        <option value="3"<%if $searchedProperty.bedNum == '3'%> selected='selected'<%/if%>>3+</option>
+        <option value="4"<%if $searchedProperty.bedNum == '4'%> selected='selected'<%/if%>>4+</option>
+        <option value="5"<%if $searchedProperty.bedNum == '5'%> selected='selected'<%/if%>>5+</option>
+        </select>
+    </section>
+    <section  class="col-xs-4 col-md-1 col-lg-1" class="floatClass bath">
+        <select  id="bath-num" name="bath-num">
+        <option value="-1"<%if $searchedProperty.bathNum == '-1'%> selected='selected'<%/if%>><%$propertytDataName.Baths%></option>
+        <option value="0"<%if $searchedProperty.bathNum == '0'%> selected='selected'<%/if%>>0+</option>
+        <option value="1"<%if $searchedProperty.bathNum == '1'%> selected='selected'<%/if%>>1+</option>
+        <option value="2"<%if $searchedProperty.bathNum == '2'%> selected='selected'<%/if%>>2+</option>
+        <option value="3"<%if $searchedProperty.bathNum == '3'%> selected='selected'<%/if%>>3+</option>
+        <option value="4"<%if $searchedProperty.bathNum == '4'%> selected='selected'<%/if%>>4+</option>
+        <option value="5"<%if $searchedProperty.bathNum == '5'%> selected='selected'<%/if%>>5+</option>
+        </select>
+    </section>
+    <section  class="col-xs-4 col-md-1 col-lg-1" class="floatClass gap">
+        <select  id="price-unit" name="price-unit">
+        <option value="USD"<%if $searchedProperty.priceUnit == 'USD'%> selected='selected'<%/if%>>USD</option>
+        <option value="RMB"<%if $searchedProperty.priceUnit == 'RMB'%> selected='selected'<%/if%>>RMB</option>
+        <option value="GBP"<%if $searchedProperty.priceUnit == 'GBP'%> selected='selected'<%/if%>>GBP</option>
+        <option value="EUR"<%if $searchedProperty.priceUnit == 'EUR'%> selected='selected'<%/if%>>EUR</option>
+
+        </select>
+    </section>
+    <section class="col-xs-8 col-sm-8 col-md-3 col-lg-4" class="floatClass price" >
+        <div id="price-menu" >
+            <div>
+                <span class="" >
+                    <input type="text" placeholder="MinPrice"  muti="1" min="0" max="999999" autocomplete="off" id="price-start" name="price-start" value="<%$searchedProperty.priceStart%>">
+                </span>
+                <span > - </span>
+                <span class="">
+                    <input type="text" placeholder="MaxPrice" muti="1" min="0" max="999999"  autocomplete="off" id="price-end" name="price-end"value="<%$searchedProperty.priceEnd%>">
+                </span>
+            </div>
+         </div>
+    </section>
+    <section class="col-xs-12 col-sm-6 col-md-4 col-lg-4 search" class="floatClass ">
+        <input placeholder="<%$propertytDataName.search_area%>" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0"  id="property-position" name="property-position">
+        <button class="select-search-button" id="list-search-button"></button>
+        <a id="reset-search-data" ><%$propertytDataName.Reset%></a>
+    </section>
+
+  <div class="clearfloat"></div>
+  </div><!--<div id="searchContainer" >-->
+</fieldset>
+  </form>
+</div>
+</div>
+</div>
+
+<div class="block-container">
+<div class="block-inner">
+    <div class="content-container">
+        <div class="content-inner">
+
+            <ul>
+
+                <%if $propertyListArray|@count eq 0%>
+                    <div>No result, please refine your search.</div>
+                <%else%>
+
+                <%foreach from=$propertyListArray item=propertyItem%>
+                <%assign var="carousel_images_string" value = $propertyItem.allImages|regex_replace:"/[\r\n\t]/":"*"%>
+                <%assign var="carousel_images_string" value = $carousel_images_string|regex_replace:"/(\*+)/":"*"%>
+                <%assign var="carousel_images_array" value="*"|explode:$carousel_images_string%>
+                <%assign var="imageCount" value=$carousel_images_array|@count%>
+
+                <%if $imageCount eq 0 || $propertyItem.price  eq ''%>
+
+                <%else%>
+                <li class="ai-search-result-detail-item last-column">
+                    <div class="ai-search-result ai-search-result-header-section" data-itemtype="l" data-feature="1" data-listtype="1">
+                    <div class="thumbnail">
+                        <a href="javascript:void(0)" id="thumbnail-a"title="Beautiful Southwest adobe-style home in Scottsdale">
+                    <div class="photo-count-badge"><span><%$imageCount%>  <%$propertytDataName.Photos%></span></div>
+                    <div class="listing-info-badge">
+                        <div class="row">
+                               <div class="col-md-9">
+                                 <p class="no-bottom-space anchor-text"><%$propertyItem.realEstateName%> <%$propertyItem.country%></p>
+                                 <p class="ai-list-info">
+
+                            <%if $propertyItem.price|string_format:"%d" eq 0%>
+                            <span  class="ai-listing-price"><%$propertytDataName.Discuss_Personally%></span>
+                            <%else%>
+                            <span class="ai-listing-price"><%$propertyItem.price%>  <%$propertyItem.priceUnit%></span>
+                            <%/if%>
+
+                            <%if $propertyItem.bedroom eq 0%>
+                            <%else%>
+                            <span class="ai-listing-bed">&nbsp;&nbsp;&nbsp;<%$propertyItem.bedroom%></span>
+                                &nbsp;
+                            <span class="text-uppercase ai-listing-bedbathlabel"><%$propertytDataName.Bed%></span>
+                            <%/if%>
+
+                            <%if $propertyItem.bathroom eq 0%>
+                            <%else%>
+                            <span class="ai-listing-bath">&nbsp;&nbsp;&nbsp;<%$propertyItem.bathroom%></span>&nbsp;
+                            <span class="text-uppercase ai-listing-bedbathlabel"><%$propertytDataName.Bath%></span>
+                            <%/if%>
+
+                          <%*  <span class="ai-listing-price"><%$propertyItem.price%>  <%$propertyItem.priceUnit%></span>
+                            <span class="ai-listing-bed">&nbsp;&nbsp;&nbsp;<%$propertyItem.bedroom%></span>
+                                &nbsp;
+                            <span class="text-uppercase ai-listing-bedbathlabel"><%$propertytDataName.Bed%></span>
+                            <span class="ai-listing-bath">&nbsp;&nbsp;&nbsp;<%$propertyItem.bathroom%></span>&nbsp;
+                            <span class="text-uppercase ai-listing-bedbathlabel"><%$propertytDataName.Bath%></span>
+                            *%>
+                                </p>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="cropped">
+                         <img class="center-block" data-object-fit="cover" src="<%$propertyItem.coverImage%>" alt="undefined">
+                          <img class="img-responsive company-logo hidden-xs" src="<%$propertyItem.companyImage%>">
+                    </div><!--<div class="cropped">-->
+                        </a>
+                    </div><!--<div class="thumbnail">-->
+                    <div class="selected-listing-pointer hidden-xs" style="display: none"></div>
+                    </div><!--<div class="ai-search-result">-->
+
+                    <div class="ai-listing-detail-spa-container ai-search-result-detail-section-full-width" style="display: none">
+    <div class="ai-action-button-container">
+        <div class="ai-right-buttons-container">
+            <div class="ai-expand-container">
+
+                <a style="vertical-align: super" target="_blank" href="/index.php/ft/property/detail?id=<%$propertyItem.propertyId%>" title="More Info">
+                    <span class="text-uppercase ai-expand-label"><%$propertytDataName.More_Info%></span>
+                </a>
+            </div>
+            <div class="ai-close-container">
+                <a href="javascript:void(0)" title="Close">
+                    <span class="ai-close hairline">×</span>
+                </a>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div><!-- <div class="ai-action-button-container">-->
+
+
+    <div class="ai-search-result-detail-section-full-width-inner">
+        <div class="row margin-bottom-10">
+            <div class="col-md-7" style="height:400px;">
+                <!-- Swiper -->
+                <div class="swiper-position">
+                    <div class="swiper-container gallery-top">
+                        <div class="swiper-wrapper">
+                            <%foreach from=$carousel_images_array item=image%>
+                                <div class="swiper-slide" style="background-image:url(<%$image%>)"></div>
+                            <%/foreach%>
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
+                    </div>
+
+                    <div class="swiper-container gallery-thumbs">
+                        <div class="swiper-wrapper">
+                            <%foreach from=$carousel_images_array item=image%>
+                                <div class="swiper-slide" style="background-image:url(<%$image%>)"></div>
+                            <%/foreach%>
+                        </div>
+                    </div>
+                </div>  <!-- <div class="swiper-position">  -->
+            </div> <!-- <div class="col-md-7"">  -->
+
+
+            <div class="col-md-5  ai-lead-form-section" >
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="ai-listing-name">
+                           <%$propertyItem.area%> <%$propertyItem.realEstateName%>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="ai-listing-location">
+                            <%$propertyItem.country%>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="ai-listing-price">
+                            <span class="text-uppercase ai-listing-type"><%$propertyItem.propertyNature%></span> &nbsp;&nbsp;
+                            &nbsp;&nbsp;
+
+                            <%if $propertyItem.price|string_format:"%d" eq 0%>
+                            <span  class="price-converted">面议</span>
+                            <%else%>
+                            <span class="price-converted">
+                                <%$propertyItem.price%>  <%$propertyItem.priceUnit%>
+                            </span>
+                            <%/if%>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <%if $propertyItem.bedroom eq 0%>
+                    <%else%>
+                    <div class="col-xs-2">
+                        <div class="row">
+                            <div class="col-xs-12 text-center ai-listing-info">
+                                <%$propertyItem.bedroom%>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center ai-listing-info-label">
+                                <%$propertytDataName.Bed%>
+                            </div>
+                        </div>
+                    </div>
+                    <%/if%>
+                    <%if $propertyItem.bathroom eq 0%>
+                    <%else%>
+                    <div class="col-xs-2">
+                        <div class="row">
+                            <div class="col-xs-12 text-center ai-listing-info">
+                                <%$propertyItem.bathroom%>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center ai-listing-info-label">
+                                <%$propertytDataName.Bath%>
+                            </div>
+                        </div>
+                    </div>
+                    <%/if%>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class="ai-lead-form-title">
+                            <%$propertytDataName.Contact_Agent%>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row text-center img-center">
+                    <div class="col-xs-12 col-sm-5" >
+                        <div class="row">
+                            <span class="col-xs-12 margin-bottom-5">
+                                <%$propertyItem.name%>
+                            </span>
+                        </div>
+                        <div class="row margin-bottom-5 hidden-xs">
+                            <div class="call inquiry-agent-call" id="inquiry-agent-call">
+                                <img src="http://static.ftchinese.com/icon/svg/phone-call.svg">
+                                <a rel="nofollow" href="javascript:void(0)"><%$propertytDataName.Call%></a>
+                            </div>
+                            <div class="call" id="inquiry-agent-contact-number">
+                                <a itemprop="telephone" href="tel:<%$propertyItem.agentTelephone%>"> <%$propertyItem.agentTelephone%> </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="col-xs-12 margin-bottom-5">
+                                <%$propertyItem.propertyTitle%>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <img class="img-responsive" onerror="this.onerror=null;this.style.display='none';" src="<%$propertyItem.companyImage%>" alt="<%$propertyItem.propertyTitle%>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 hidden-xs">
+                        <form id="" method="post" action="" class="sky-form"  novalidate="novalidate">
+                            <div>
+                                <input type="hidden" id="propertyId"  name="propertyId"  value="<%$propertyItem.propertyId%>" />
+                                <section>
+                                    <div class="input">
+                                        <img src="http://static.ftchinese.com/icon/svg/avatar.svg">
+
+                                        <input id="client-name" name="client-name" placeholder="<%$propertytDataName.Your_Full_Name%>" type="text">
+
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="input">
+                                        <img src="http://static.ftchinese.com/icon/svg/phone-call.svg">
+                                        <input id="client-number" name="client-number" placeholder="<%$propertytDataName.Phone_Number%>" type="number" >
+
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="input">
+                                        <img src="http://static.ftchinese.com/icon/svg/envelope.svg">
+                                        <input id="client-email" name="client-email" placeholder="<%$propertytDataName.Email%>" type="email">
+
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="textarea textarea-resizable">
+                                    <img src="http://static.ftchinese.com/icon/svg/chat.svg">
+                                        <textarea id="client-message" name="client-message" placeholder="<%$propertytDataName.Message%>" type="text"></textarea>
+
+                                    </div>
+                                </section>
+                                <div class="clearfloat"></div>
+                            </div>
+
+                            <div class="ai-inquirylead-form-contact">
+                                <button type="button" class="btn-u" id="contact-agent-submit"><%$propertytDataName.Contact_Agent%></button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+    </div><!-- <div class="ai-search-result-detail-section-full-width-inner" -->
+
+    </div>
+
+</li>
+<%/if%>
+<%/foreach%>
+
+<%/if%>
+            </ul>
+
+            <div class="clearfloat block-bottom"></div>
+        </div>
+    </div>
+
+<div class="clearfloat"></div>
+</div>
+</div><!--<div class="block-container has-side story-page">-->

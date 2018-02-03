@@ -1,0 +1,269 @@
+<%assign var="w" value=$smarty.get.w%>
+<%assign var="h" value=$smarty.get.h%>
+<%if $smarty.get.autostart == "false"%>
+<%assign var="autostart" value="false"%>
+<%else%>
+<%assign var="autostart" value="true"%>
+<%/if%>
+<%if $itemType == ""%>
+    <%assign var="itemType" value="video"%>
+<%/if%>
+<%if $smarty.get.vid != ""%>
+    <%assign var="cc_vaddress" value=$smarty.get.vid%>
+<%elseif $cc_vaddress == ""%>
+    <%assign var="cc_vaddress" value=$cbyline_status%>
+<%/if%>
+<%if $smarty.get.sound == "off"%>
+    <%assign var=sound value="off"%>
+<%else%>
+    <%assign var=sound value="on"%>
+<%/if%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title><%$cheadline%> - FT中文网首页视频</title>
+<meta content="FT中文网智能手机HTML 5应用" name="description"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<link rel="apple-touch-icon-precomposed" href="http://static.ftchinese.com/img/ipad_icon.png" />
+<meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+<meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+<style>
+* { margin:0; padding:0;}
+html,body{background:#000;height:100%;min-height:100%;}
+#video:after {
+    position: absolute;
+    content: '';
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    bottom: 0;
+    left: 0;
+    background-size: 40px!important;
+    opacity: 1;
+    background: url(https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:play?source=o-icons&tint=%23FFFFFF,%236e7072&format=svg) rgba(0, 0, 0, 0.9) no-repeat center center;
+}
+</style>
+<%include file="next/partials/head.html"%>
+</head>
+
+<body>
+
+<%if $smarty.get.videowall == "yes"%>
+
+    <script type="text/javascript">
+    var useragent;
+    var opacity = 0;
+    var siteid = '922662811F1A49E9';
+    var vid = '<%$cc_vaddress%>';
+    var v_width = '<%$w%>';
+    var v_height = '<%$h%>';
+    var AutoPlay = 'Y';
+    var url = 'http://www.ftchinese.com/<%$itemType%>/<%$id%>';
+    if (typeof uaString === 'string') {
+        if (/iphone/i.test(uaString)) {
+            useragent = 'iPhone';
+        } else if (/ipad/i.test(uaString)) {
+            useragent = 'iPad';
+        } else if (/android/i.test(uaString)) {
+            useragent = 'Android';
+        } else {
+            useragent = 'iPhone';
+        }
+    } else {
+        useragent = 'iPhone';
+    }
+
+    document.write('<a href="' + url + '" target="_blank" style="width:' + v_width + 'px; height:' + v_height + 'px; display:block; overflow:hidden"><div id="video" style="position:relative;"></div></a>');
+    var JSONP = document.createElement('script');
+    JSONP.type = 'text/javascript';
+    JSONP.src = 'http://p.bokecc.com/servlet/getvideofile?[ASRANDOM]&vid=' + vid + '&siteid=' + siteid + '&divid=&callback=video&useragent=' + useragent;
+    document.getElementsByTagName('head')[0].appendChild(JSONP);
+    function video(obj) {
+        document.getElementById('video').innerHTML = '<video id="mpu-video" src="' + obj.copies[0].playurl + '" width="' + v_width + '" height="' + v_height + '" airplay="deny" x-webkit-airplay="deny" playsinline webkit-playsinline>Your browser does not support the <code>video</code> element.</video><div id="sound-button" style="width:36px; height:36px; position:absolute; top:0; left:0px; z-index:16; background-color:#FFF; cursor:pointer; border:none; padding:0px; margin:0px; background: url(http://static.ftchinese.com/ftc-icons/png/ic_volume_up_white_18pt.png) rgba(0,0,0,0.618) no-repeat 50% 50%; " onclick="switchSound(this)"></div>';
+        var v = document.getElementById('mpu-video');
+        var soundButton = document.getElementById('sound-button');
+        v.controls = true;
+        v.poster = obj.img;
+        var isUsingData = (parent.window.gConnectionType === 'data')? true : false;
+        var isUsingPhone = (/phone/i.test(parent.window.gDeviceType) || /pad/i.test(parent.window.gDeviceType))? true : false;
+        if (isUsingData === true || isUsingPhone === true) {
+            AutoPlay = 'N';
+        }
+        v.controls = false;
+        v.loop = true;
+        if (AutoPlay === 'Y') {
+            // MARK: When user is runnin the ad from a web page using wifi
+            v.autoplay = true;
+            v.muted = true;
+            v.preload = 'metadata';
+            soundButton.style.display = 'none';
+        } else {
+            v.autoplay = false;
+            v.preload = 'none';
+            if (isUsingData === false) {
+                // MARK: If in a web app, set autoplay as N. But play video when user scroll the MPU into view.
+                soundButton.style.display = 'none';
+                v.muted = true;
+            } else {
+                soundButton.style.display = 'none';
+                v.muted = false;
+            }
+        }
+    }
+    function switchSound(ele) {
+        var v = document.getElementById('mpu-video');
+        if (ele.className == 'sound-on') {
+            ele.className = '';
+            ele.style.backgroundImage = 'url(http://static.ftchinese.com/ftc-icons/png/ic_volume_up_white_18pt.png)';
+            v.muted = true;
+        } else {
+            ele.className = 'sound-on';
+            ele.style.backgroundImage = 'url(http://static.ftchinese.com/ftc-icons/png/ic_volume_off_white_18pt.png)';
+            v.muted = false;
+        }
+    }
+    </script>
+
+
+
+<%else%>
+    <%assign var="virtualPage" value="/`$itemType`/`$id`?contentType=other&channel=`$catalogname`&pageType=iframe"%>
+    <% foreach item=t from=$tag %>
+    <% if preg_match('/英文原声/is',$t.tag) %>
+      <%assign var="virtualPage" value="/`$itemType`/`$id`?contentType=english&channel=`$catalogname`&pageType=iframe"%>
+    <%/if%>
+    <%/foreach%>
+    <%if preg_match('/英文原声/is',$cheadline)%>
+      <%assign var="virtualPage" value="/`$itemType`/`$id`?contentType=english&channel=`$catalogname`&pageType=iframe"%>
+    <%/if%>
+    <script>
+          var virtualPage = "<%$virtualPage%>";
+    </script>
+
+    <%if $smarty.get.vid != ""%>
+        <script src="http://p.bokecc.com/player?vid=<%$smarty.get.vid%>&siteid=922662811F1A49E9&autoStart=<%$autostart%>&width=<%$w%>&height=<%$h%>&playerid=3571A3BF2AEC8829&playertype=1" type="text/javascript"></script>
+    <%elseif $cc_vaddress && $cc_vaddress!=""%>
+      <script src="http://union.bokecc.com/player?vid=<%$cc_vaddress%>&siteid=922662811F1A49E9&autoStart=<%$autostart%>&width=<%$w%>&height=<%$h%>&playerid=3571A3BF2AEC8829&playertype=1" type="text/javascript"></script>
+    <%else%>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="<%$w%>" height="<%$h%>" id="osmfPlayer">
+        <param name="movie" value="http://static.ftchinese.com/player111014/osmfPlayer_3.swf?videoid=<%$id%>&autoplay=<%$autostart%>" />
+        <param name="quality" value="high" />
+        <param name="bgcolor" value="#000000" />
+        <param name="allowScriptAccess" value="always" />
+        <param name="allowFullScreen" value="true" />
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="http://static.ftchinese.com/player111014/osmfPlayer_3.swf?videoid=<%$id%>&autoplay=<%$autostart%>" width="<%$w%>" height="<%$h%>">
+            <param name="quality" value="high" />
+            <param name="bgcolor" value="#000000" />
+            <param name="allowFullScreen" value="true" />
+            <param name="allowScriptAccess" value="always" />
+        <!--<![endif]-->
+        <!--[if gte IE 6]>-->
+        <video id="nowvideo" src="http://v.ftimg.net/<%$videoname%>" controls="" width="<%$w%>" height="<%$h%>">
+            <p>
+                Either scripts and active content are not permitted to run or Adobe Flash Player version
+                10.0.0 or greater is not installed.
+            </p>
+        </video>
+        <!--<![endif]-->
+        <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+    </object>
+    <%/if%>
+
+    <%*<!--on_player_start-->*%>
+    <script>
+    var vid = "<%$cc_vaddress%>", id = "<%$id%>", w = "<%$w%>" || 347, h="<%$h%>" || 195;
+    var sound = '<%$sound%>';
+    var gEffortsLimit = 10;
+    var gEfforts = 0;
+    var player = {};
+
+
+    function nextElementSibling( elem ) {
+        do {
+            elem = elem.nextSibling;
+        } while( elem && elem.nodeType !== 1 );
+        return elem;
+    }
+
+    function onPlayStart() {
+        try {
+            gAutoStart = undefined;
+            trackerNew();
+        } catch (ignore) {
+            ga('send', 'pageview');
+        }    
+        ga('send', 'event', 'video', 'Play on Home',id);
+        fa('send', 'pageview');
+        fa('send', 'event', 'video', 'Start',id);
+        var www1Img=new Image(), theurl = window.location;
+        www1Img.onload=function() {};
+        www1Img.src='http://www1.ftchinese.com/log/new_log.php?id=&adch=&tpages=1&refer=&vpage=' + encodeURIComponent(theurl.pathname + theurl.search + theurl.hash) + '&timeStamp=' + Date.now();
+        if (sound === 'off') {
+            player.setVolume(0);        
+        }
+    }
+
+    function onPlayStop() {
+
+    }
+
+    function on_cc_player_init( vid, objectID ){
+    var config = {};
+    player = getSWF( objectID );
+    config.on_player_start = "onPlayStart";
+    config.on_player_stop = "onPlayStop";
+    try {player.setConfig(config);player.setVolume(0.5);} catch(ignore){}
+    }
+
+    function getSWF( swfID ) {
+        if( navigator.appName.indexOf( "Microsoft" ) != -1 ){
+            return window[ swfID ];
+        } else {
+            return document[ swfID ];
+        }
+    }
+
+    function ccVideoAPI(){
+        var objectID = '';
+        if (document.getElementsByTagName('object')[0]) {
+            objectID = document.getElementsByTagName('object')[0].getAttribute('id') || '';
+        }
+        if (objectID !== "") {
+        on_cc_player_init( vid, objectID );
+        }
+    }
+
+
+    function getVideoUrl() {
+        var videoUrl = '';
+        try {
+            if (window.parent.document && window.parent.document.getElementById('story-vid-' + id)) {
+                if (document.getElementsByTagName('video').length > 0) {
+                    videoUrl = document.getElementsByTagName('video')[0].src;
+                    window.parent.document.getElementById('story-vid-' + id).parentNode.setAttribute('video-url',videoUrl);
+                } else if (gEfforts < gEffortsLimit) {
+                    gEfforts = gEfforts + 1;
+                    setTimeout(function(){
+                        getVideoUrl();
+                    }, 2000);
+                }
+            }
+        } catch (ignore) {
+            alert (ignore);
+        }
+    }
+
+    window.onload = function (){
+        ccVideoAPI();
+    }
+
+    getVideoUrl();
+    </script>
+<%/if%>
+</body>
+</html>

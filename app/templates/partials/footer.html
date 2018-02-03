@@ -1,0 +1,113 @@
+<%if $smarty.get.dispatch == "load"%>
+<script type="text/javascript">
+	dispatchEvent(new Event('load'));
+	document.querySelector('.story-theme').innerHTML = '加载成功';
+</script>
+<%/if%>
+
+<div class="hide-iframe">
+	<script type="text/javascript">
+			 document.write(writeAdNew({
+					devices: ['PC','iPhoneWeb','AndroidWeb','iPhoneApp','AndroidApp','PadApp','PadWeb'],
+					pattern:'PaidpostStory',
+					position:'Num1'
+				}));
+	</script>
+</div>
+
+<%if $smarty.get.webview != "ftcapp"%>
+<div class="footer-container"><div class="footer-inner">
+	<div>
+		<a href="/m/corp/aboutus.html">关于我们</a>
+		<a href="https://ft.wd3.myworkdayjobs.com/FT_Chinese_External_Careers" target="_blank">加入我们</a>
+		<a href="/m/corp/faq.html">问题回馈</a>
+		<a href="/m/corp/contact.html">联系方式</a>
+		<a href="/m/corp/partner.html">合作伙伴</a>
+		<a href="/m/corp/service.html">服务条款</a>
+		<a href="/m/corp/sales.html">广告业务 </a>
+		<a href="/m/corp/copyright.html">版权声明</a>
+		<a href="/m/marketing/ftc.html">最新动态</a>
+	</div>
+	<p>
+		<span class="copyright"><b>© The Financial Times Ltd <%$smarty.now|date_format:"%Y"%></b></span> 
+		<span><acronym title="Financial Times">FT</acronym> and 'Financial Times' are trademarks of The Financial Times Ltd.</span>
+	</p>
+
+
+
+
+	<%if date("Ymd",$smarty.now) <= 20160723 && $smarty.get.ad != 'no' && $noAd != "true"%>
+		<%if $smarty.get.utm_campaign == "2M161000" || preg_match("/2U16[0-9]+/is",$smarty.get.utm_campaign)%>
+		<script>
+			function checkFrames() {
+			    var adFrames = document.querySelectorAll('.banner-iframe');
+			    for (var k=0; k<adFrames.length; k++) {
+			        if (k<4 || k>8) {
+			            adFrames[k].contentDocument.location.reload(true);
+			            //console.log ('test for angela ' + k);
+			        }
+			    }
+			}
+		    setTimeout(function(){
+		    	checkFrames();
+		    }, 5000);
+		    setTimeout(function(){
+		    	checkFrames();
+		    }, 10000);
+		    setTimeout(function(){
+		    	checkFrames();
+		    }, 15000);
+		</script>
+		<%else%>
+			<script>
+			if (w > 490) {
+			if (document.getElementById('pop-ad')) {
+			document.getElementById('pop-ad').style.display = 'none';
+			} else {
+			document.write('<div style="display:none;"><div id="pop-ad" class="overlay on done" style="display: none;"></div></div>');
+			}
+			document.write('<iframe class="banner-iframe" data-adch="2023" data-adPosition="9951" id="phonefullpage1" width="0" height="0" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" src="/m/marketing/a.html?v=20171214112400#adid=20239951&pid=phonefullpage1" data-src="/m/marketing/a.html?v=20171214112400#adid=20239951&pid=phonefullpage1" data-ad-type="phonefullpage" data-ad-count=1></iframe>');
+			}
+			</script>
+		<%/if%>
+	<%/if%>
+
+
+</div></div>
+<%/if%>
+
+
+<%if $debug_model == 1%>
+<div style="text-align: center; background-color: #FFFFFF; font-size: 38px; margin: 20px;font-weight:bold;"><a title="刷新本页CDN与服务器缓存" href="/index.php/marketing/flushcache?url=http://www7.ftchinese.com<%$smarty.server.REQUEST_URI|urlencode%>">刷新本页缓存</a></div>
+
+<div style="text-align: center; background-color: #FFFFFF; font-size: 38px; margin: 20px;font-weight:bold;"><a title="提取本页的所有链接，便于在谷歌分析中查询流量" onclick="javascript:getAllLinksFromPage(this);">提取本页链接</a></div>
+<script>
+	function getAllLinksFromPage(ele) {
+		var allLinks = document.querySelectorAll('a[href]');
+		var linksArray = [];
+		var hostName = window.location.host;
+		for (var i=0; i<allLinks.length; i++) {
+		var linkText = allLinks[i].href;
+		linkText = linkText.replace('http://' + hostName, "");
+		if (/story\/|interactive\/|video\/|photonews/.test(linkText)) {
+		linkText = linkText.replace(/[\?#].*$/g, '');
+		if (linksArray.indexOf(linkText)<0) {
+		linksArray.push(linkText);
+		}
+		}
+		}
+		ele.innerHTML = '<textarea rows=3 style="width:100%">'+linksArray.join('|')+'</textarea>'
+		//alert (linksArray.join('|'));
+	}
+</script>
+<%/if%>
+
+
+
+<%*<!--  MARK: Tracking Code added by Youlu Technology -->*%>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KP4V3G')</script>
+
+
+<%*<!--  MARK: Krux Tracking Code -->*%>
+<img src='http://beacon.krxd.net/event.gif?event_id=KWA6DGT9&event_type=rtg' width=0 height=0 />
+

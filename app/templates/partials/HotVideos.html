@@ -1,0 +1,21 @@
+<div class="side-container"><div class="side-inner">
+	<div class="mps">
+		<h2 class="list-title"><a href="/channel/stream.html">热门视频</a></h2>
+		<ul class="top10">
+			<%assign var="i" value=0%>
+			<%assign var="mp" value=$videomodel->get_hot_video(30,10) %>
+			<%foreach item=sc from=$mp%>
+			<%if $i<10%>
+				<%assign var="i" value=$i+1%>
+				<li class="mp<%$i%>"><span><%$i%>. </span><a target="_blank" href="/video/<%$sc.storyid%>"><%$sc.cheadline|regex_replace:"/^【(.*)】(.*)$/":"\\2"%></a></li>
+			<%/if%>
+			<%/foreach%>
+		</ul>
+	</div>
+
+	<%if $smarty.get.ad != "no" && $noAd != "true" && 1>2%>
+    <div class="mpu-container">
+        <script type="text/javascript">document.write (writeAd('mpu'));</script>
+    </div>
+    <%/if%>
+</div></div>

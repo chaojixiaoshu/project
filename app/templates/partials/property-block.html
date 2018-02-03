@@ -1,0 +1,86 @@
+
+ <div class="ai-search-block" >
+      <form>
+          <div id="searchContainer" >
+    <div class="floatClass select-search-group" >
+                <select  id="property-nature" name="property-nature">
+                <option value="forSale" <%if $searchedProperty.propertyNature == '0'%> selected='selected'<%/if%>><%$propertytDataName.For_Sale%></option>
+                <option value="forRent" <%if $searchedProperty.propertyNature == '1'%> selected='selected'<%/if%>><%$propertytDataName.For_Rent%></option>
+                </select>
+    </div>
+
+    <div class="floatClass input-search-group">
+        <input placeholder="<%$propertytDataName.search_area%>" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0"  id="property-position" name="property-position">
+    </div>
+    <div>
+        <button  type ="button" class="select-search-button" id="select-search-button" ></button>
+    </div>
+
+  <div class="clearfloat"></div>
+  </div>
+  </form>
+</div>
+<div class="block-container no-side">
+  <div class="block-inner">
+    <div class="content-container">
+        <div class="content-inner">
+          <div class="list-container">
+                <div class="list-inner">
+                    <h2 class="list-title"><a class="list-link"><%$propertytDataName.FEATURED_PROPERTIES%></a></h2>
+                    <div class="items">
+                        <%foreach from=$propertyArray item=propertyItem%>
+
+
+                        <div class="item-container XL4 L4 M4 S6 P12 P-half has-image">
+                            <div class="item-inner"><h2 class="item-headline"><a target="_blank" href="/index.php/ft/property/detail?id=<%$propertyItem.propertyId%>"><span><%$propertyItem.realEstateName%></span> <br> <span><%$propertyItem.country%></span> </a></h2>
+                            <a class="image" target="_blank" href="/index.php/ft/property/detail?id=<%$propertyItem.propertyId%>">
+                            <figure class="is-retina" data-url="<%$propertyItem.coverImage%>">
+                            <img src="<%$propertyItem.coverImage%>" data-backupimage="<%$propertyItem.coverImage%>">
+                            <img class="logoImage" src="<%$propertyItem.companyImage%>"></figure></a>
+
+        
+                            <div class="item-lead"><%$propertyItem.area%></div>
+                             
+                            <%if $propertyItem.price|string_format:"%d" eq 0%> 
+                            <div class="item-lead"><%$propertytDataName.Discuss_Personally%></div>
+                            <%else%>
+                            <div class="item-lead"><%$propertyItem.priceUnit%>  <%$propertyItem.price%></div>
+                            <%/if%>  
+                            
+                            <div class="item-time">
+                            <%if $propertyItem.bedroom eq 0%> 
+                            <%else%>
+                            <%$propertyItem.bedroom%>BED 
+                            <%/if%>    
+                            <%if $propertyItem.bathroom eq 0%> 
+                            <%else%>
+                            <%$propertyItem.bathroom%>BATH
+                            <%/if%>
+                            
+                            </div>
+
+                            <div class="item-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="<%$propertyItem.className%>"></div>
+                        <%/foreach%> 
+                        <div class="clearfloat"></div>
+                    </div>
+               </div>
+            </div><!--list-container结束-->
+        </div><!--content-inner结束-->
+   </div><!--content-container结束-->
+   <div class="clearfloat"></div>
+ </div><!--block-inner结束-->
+</div><!--block-container no-side结束-->
+
+<div class="block-container no-side">
+  <div class="block-inner">
+    <div class="content-container">
+        <div class="content-inner" id="content-inner">
+          <div class="clearfloat block-bottom"></div>
+        </div><!--content-inner结束-->
+   </div><!--content-container结束-->
+   <div class="clearfloat"></div>
+ </div><!--block-inner结束-->
+</div><!--block-container no-side结束-->
