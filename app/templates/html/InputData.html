@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>返修车新增</title>
+	  <style type="text/css">
+          #EnginePlantReworkSystem{
+          color:#FFFFFF;
+          width:960px;
+          height:60px;
+          background-color:#2914E5;
+          border-color:#2914E5;
+          text-align:center;
+          margin-left:auto; 
+          margin-right:auto;
+          font-family:Times New Roman;
+          font-size:30px;
+          font-weight:bold;
+          line-height:60px;
+          }
+		  #Div_modulename{
+		  color:#FFFFFF;
+		  width:960px;
+		  height:40px;
+		  text-align:center;
+		  margin-left:auto; 
+		  margin-right:auto;
+		  }
+		 .modulename{
+		color:#FFFFFF;
+		width:240px;
+		height:45px;
+		background-color:#2914E5;
+		text-align:center;
+		margin-left:0px; 
+		margin-right:0px;
+		font-family:宋体;
+		font-size:25px;
+		font-weight:bold;
+		line-height:40px;
+		float:left;
+		}
+		#modulenamebuffer{
+		border-left: 0px solid #FFFFFF;
+		border-right: 2px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		#modulenamedatabase{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameclass{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameprocess{
+		border-left: 2px solid #FFFFFF;
+		border-right: 0px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		.Div_modulecontent{
+		width:960px;
+		height:400px;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-top:20px;
+		background-color:#F5F5F5;
+		border-left: 2px solid #C0C0C0;
+		border-right: 2px solid #C0C0C0;
+		border-top: 4px solid #C0C0C0;
+		border-bottom: 4px solid #C0C0C0;	
+		}
+		#Div_modulecontent1{
+		width:960px;
+		height:550px;
+		}
+		#engineAddDataTitle{
+		color:#000000;
+		background-color:#C0C0C0;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:20px;
+		font-family:宋体;
+		font-size:20px;
+		font-weight:bold;
+		line-height:35px;
+		}
+		.DataItemTitle {display:inline-block; width:450px;height:40px; text-align:right;}
+		#engineDataItem1{ text-align:left;}
+		.DataItemInput{width:200px;height:20px;}
+		.DataItemSelect{width:195px;height:27px;}
+		#engineDataItem2{height:80px;margin-top:25px; }
+		#SubmitButton,#CancelButton{font-weight:bold;}
+      </style>
+      <script type="text/javascript" src="Lib/jquery-1.12.0.min.js"></script>
+      <script type="text/javascript" src="Scripts/SaveDataToDataBase.js" ></script>
+      <script src="Lib/quagga.js" type="text/javascript"></script>
+</head>
+
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修发动机" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('ReworkProcess.html','_self')">
+      <!--模块标题<div id="modulenamebuffer" class="modulename">返修车</div>
+		<div id="modulenamedatabase" class="modulename">返修数据库</div>
+		<div id="modulenameclass" class="modulename"></div>
+		<div id="modulenameprocess" class="modulename">返修工艺</div>-->		
+	</div>
+    
+<!--模块内容    新增信息输入-->
+	<div id="Div_modulecontent1"  class="Div_modulecontent">
+		<div id="engineAddDataTitle" class="engineposition">返修车新增</div>
+		<div id="engineAddDatacontent" class="engineAddDatacontent" >
+        	<div id="engineDataItem1" class="engineDataItem">
+            <label  class="DataItemTitle">发动机号：</label><input type="text" class="DataItemInput"  id="Item_Number" value="272010333333"/>
+			<input type="file" accept="image/*;capture=camera" id="CaptureBarcode">
+			<input type="button" id="ReadBarcode" value="自动识别"/>
+<!-- 			<div class="controls">
+   <fieldset class="input-group">
+     <input type="file" accept="image/*;capture=camera">
+     <button>Rerun</button>
+   </fieldset>
+ </div>
+ <div id="result_strip">
+  <ul class="thumbnails"></ul>
+ </div>
+ <div id="interactive" class="viewport"><canvas class="imgBuffer" width="800" height="566"></canvas><canvas class="drawingBuffer" width="800" height="566"></canvas><br clear="all"></div> -->
+
+
+            <br />
+            <label class="DataItemTitle">发动机机型：</label><input type="text" class="DataItemInput"  id="Item_Type" value="2720105608"/><br />
+            <label class="DataItemTitle">日期：</label><input type="text" class="DataItemInput" id="Item_Date" value="20170226"/><br />
+            <label class="DataItemTitle">返修原因：</label>
+                  <select name="select" id="Item_Reason" class="DataItemSelect">
+	                  <option value="进排扭">进排扭</option>
+	                  <option value="CCT">CCT</option>
+	                  <option value="油压">油压</option>
+	                  <option value="VVT">VVT</option>
+	                  <option value="NVH">NVH</option>
+	                  <option value="扭矩">扭矩</option>
+                  </select><br />
+            <label class="DataItemTitle">位置：</label><input type="text" class="DataItemInput"  id="Item_Position" value="12"/><br />
+            <label class="DataItemTitle">是否优先：</label>
+            	  <select name="select" id="Item_IsPriority" class="DataItemSelect">
+                  <option value="否">否</option><option value="一般优先">一般优先</option><option value="高度优先">高度优先</option>
+                  </select><br />
+            </div>
+            <div id="engineDataItem2" class="engineDataItem">&nbsp&nbsp&nbsp&nbsp&nbsp  
+            	<input type="button" id="SubmitButton" value="确定"   onclick="ClickSubmit()" />&nbsp&nbsp&nbsp   
+                <input type="button" id="CancelButton" value="取消"   onclick="ClickCancel()" />
+            </div>
+            
+        </div>
+     </div>
+        
+        
+</body>
+</html>

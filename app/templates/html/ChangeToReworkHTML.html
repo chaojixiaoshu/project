@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>请选择返修台</title>
+<!-- <script language="javascript">
+	// 筛选空返修台,并加入列表，以供选择
+	// for(var i=1,i<7,i++){
+	// 	var OnReworkItem = document.getElementById("ReworkStation"+i);
+	// 	if（OnReworkItem.val()==null）{
+			var selectList = document.getElementById("ReworkStationList");
+			selectList.innerHTML+="<option value = "ReworkStation2">返修台2</option>";
+	// 	}
+
+	// }
+	</script> -->
+	<script type="text/javascript" src="ConnPHP.js" ></script>
+</head>
+<body>
+<select name = "sel_sex" id="ReworkStationList">
+<option value = "ReworkStation1">返修台1</option>
+<option value = "ReworkStation2">返修台2</option>
+<option value = "ReworkStation3">返修台3</option>
+<option value = "ReworkStation4">返修台4</option>
+<option value = "ReworkStation5">返修台5</option>
+<option value = "ReworkStation6">返修台6</option>
+</select>
+<input type="submit" value = "确定" onclick="aa()">
+</body>
+<script language="javascript">
+	// 筛选空返修台,并加入列表，以供选择
+	// for(var i=1,i<7,i++){
+	// // 	var OnReworkItem = document.getElementById("ReworkStation"+i);
+	// // 	if（OnReworkItem.val()==null）{
+	// 	console.log('进入列表筛选：');
+	// 		var selectList = document.getElementById("ReworkStationList");
+	// 		selectList.innerHTML+="<option value = "ReworkStation2">返修台2</option>";
+	// // 	}
+	// // }
+
+	//捕捉用户选择
+	window.returnValue = "";
+	function aa()
+	{
+		window.GlobalValue_ReworkPosition=document.all("sel_sex").value
+		// if (window.opener) {
+		// 	window.opener.returnValue="opener returnValue";			
+		// }
+		// else
+		// {
+		// 	window.returnValue = document.all("sel_sex").value;
+		// }
+	
+	window.close();
+	window.hasOpenWindow = false; 
+	}
+</script>
+</html>

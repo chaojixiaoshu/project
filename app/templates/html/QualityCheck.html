@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>质量检查</title>
+	  <style type="text/css">
+          #EnginePlantReworkSystem{
+          color:#FFFFFF;
+          width:960px;
+          height:60px;
+          background-color:#2914E5;
+          border-color:#2914E5;
+          text-align:center;
+          margin-left:auto; 
+          margin-right:auto;
+          font-family:Times New Roman;
+          font-size:30px;
+          font-weight:bold;
+          line-height:60px;
+          }
+		  #Div_modulename{
+		  color:#FFFFFF;
+		  width:960px;
+		  height:40px;
+		  text-align:center;
+		  margin-left:auto; 
+		  margin-right:auto;
+		  }
+		 .modulename{
+		color:#FFFFFF;
+		width:240px;
+		height:45px;
+		background-color:#2914E5;
+		text-align:center;
+		margin-left:0px; 
+		margin-right:0px;
+		font-family:宋体;
+		font-size:25px;
+		font-weight:bold;
+		line-height:40px;
+		float:left;
+		}
+		#modulenamebuffer{
+		border-left: 0px solid #FFFFFF;
+		border-right: 2px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		#modulenamedatabase{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameclass{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameprocess{
+		border-left: 2px solid #FFFFFF;
+		border-right: 0px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		.Div_modulecontent{
+		width:960px;
+		height:400px;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-top:20px;
+		background-color:#F5F5F5;
+		border-left: 2px solid #C0C0C0;
+		border-right: 2px solid #C0C0C0;
+		border-top: 4px solid #C0C0C0;
+		border-bottom: 4px solid #C0C0C0;	
+		}
+		#Div_modulecontent1{
+		width:960px;
+		height:880px;
+		}
+		#QualitCheckTitle{
+		color:#000000;
+		background-color:#C0C0C0;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:20px;
+		font-family:宋体;
+		font-size:20px;
+		font-weight:bold;
+		line-height:35px;
+		}
+		#engineInforAndResponsible
+		{
+			margin-top: 20px;
+			margin-bottom: 40px;
+		}
+		td{  
+			height:40px;
+		border-bottom: 1px solid #CCCCCC;  
+		/*border-left: 1px solid #CCCCCC;  */
+		} 
+		table{  
+		border: 1px solid #CCCCCC; 
+		} 
+		#QualityCheckPhoto
+		{
+		width:800px;
+		height:300px;
+		background-color:#FFFFFF;
+		margin: 0 auto;
+		padding-top:5px;
+		border: 1px solid #CCCCCC; 
+		}
+		#QualityCheckPhotoChild
+		{
+			padding-left:30%;
+			text-align:left;
+			margin-top:30px;
+		}
+		.VisualCheckTitle{
+			font-weight:bold;
+		}
+      </style>
+
+   
+</head>
+
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修车" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('EPRS.html','_self')">
+	</div>
+    
+<!--模块内容    新增信息输入-->
+	<div id="Div_modulecontent1"  class="Div_modulecontent">
+		<div id="QualitCheckTitle" class="QualitCheckTitleClass">质量检查</div>
+		<div id="engineInforAndResponsible" class="information" >
+			<p>
+			<span class="enginestateindes">&nbsp&nbsp&nbsp发动机号：</span>
+			<!-- <input type="text" class="DataItemInput"  id="engineInfor" value=""/> -->
+			 <span id="engineInfor"></span>  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<span class="enginestateindes">&nbsp&nbsp&nbsp检查人：</span> <span id="ResponsibleCheck">高浩</span> 			    
+			</p>			
+		</div>
+		<div id="QualityCheckItems" class="QualityCheckClass" >
+			<p>
+			<span class="VisualCheckTitle">目视检查项</span>				    
+			</p>	
+<!-- 			<label>1、发动机条码&nbsp <input type='checkbox' name='checkbox' value='checkbox' />&nbsp</label>	
+			<label>2、线束标签&nbsp&nbsp <input type='checkbox' name='checkbox' value='checkbox' />&nbsp</label>	
+			<label>3、机油尺管&nbsp&nbsp <input type='checkbox' name='checkbox' value='checkbox' />&nbsp</label>	
+			<label>4、机油加注口盖 <input type='checkbox' name='checkbox' value='checkbox' />&nbsp</label>	 -->
+			<center>
+			<form id="form1" name="form1" method="post" action="">  
+				<table width="800" border="0" cellpadding="0" cellspacing="0" class="CheckItems">  
+				    <tr>  
+				    	<td align='left' bgcolor='#FFFFFF' width=70px>&nbsp&nbsp&nbsp&nbsp1、发动机条码 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>2、线束标签 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>3、机油尺管 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=50px>4、机油加注口盖 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    </tr> 
+
+				    <tr>  
+				    	<td align='left' bgcolor='#FFFFFF' width=80px>&nbsp&nbsp&nbsp&nbsp5、球销 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>6、凸位插头 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>7、燃油轨插头 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=50px>8、减震器 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    </tr> 
+				    <tr>  
+				    	<td align='left' bgcolor='#FFFFFF' width=70px>&nbsp&nbsp&nbsp&nbsp1、发动机条码 <input type='checkbox' name='checkbox' value='checkbox'/></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>2、线束标签 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>3、机油尺管 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=50px>4、机油加注口盖 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    </tr> 
+
+				    <tr>  
+				    	<td align='left' bgcolor='#FFFFFF' width=70px>&nbsp&nbsp&nbsp&nbsp5、球销 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>6、凸位插头 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=60px>7、燃油轨插头 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    	<td align='left' bgcolor='#FFFFFF' width=50px>8、减震器 <input type='checkbox' name='checkbox' value='checkbox' /></td>
+				    </tr> 			    		   
+				</table>  		  
+				<br />  
+			</form> 
+		</div>
+		<div id="QualityCheckPhoto" class="QualityCheckClass" >
+			<p>
+			<span class="VisualCheckTitle">拍照记录</span><br />			    
+			</p>
+			<div id="QualityCheckPhotoChild" class="QualityCheckClass" >
+				<label  class="PictureTitle">图片名称：</label><input type="text" class="DataItemInput"  id="Item_Number" value="正面"/><br /><br />
+	            <label class="PictureConnect">关联图片：</label><input type="text" class="DataItemInput"  id="Item_Type" value="2720105608"/>&nbsp 
+	            <input type="button" id="QualityCheckPhotoCaptureButton" capture="camera" value="拍照" />&nbsp
+	            <!-- <input type="file" multiple="multiple" accept="image/*" capture="camera" id="QualityCheckPhotoCaptureButton" name="拍照" /> -->
+	            <input type="file" multiple="multiple" accept="image/*" id="QualityCheckPhotoChooseButton" name="选择" />  
+	            <br /><br />
+	            <label class="PictureConnect">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><textarea rows="6" cols="60" id="showUploadedPictures">已关联图片</textarea>	
+			</div>
+			<div id="engineDataItem2" class="engineDataItem">&nbsp&nbsp&nbsp&nbsp&nbsp  
+            	<input type="button" id="UploadSubmitButton" value="上传"   />&nbsp&nbsp&nbsp   
+                <input type="button" id="UploadCancelButton" value="取消" />
+            </div>
+			<div id="webcam"></div>  		
+		</div>
+     </div>        
+        
+</body>
+
+<script type="text/javascript" src="Scripts/Test.js" ></script>
+
+<script language="javascript">
+	var name= document.cookie;
+	// console.log("--console.log---"+name)
+	var arrCookie=name.split("; ");
+	var userId;
+	//遍历cookie数组，处理每个cookie对
+	for(var i=0;i<arrCookie.length;i++){
+         var arr=arrCookie[i].split("=");
+         //找到名称为userId的cookie，并返回它的值
+         if("CurrentReworkedEngineID"==arr[0]){
+            userId=arr[1];
+            break;
+         }
+	}
+	document.getElementById("engineInfor").innerHTML=userId;
+
+
+	//捕捉用户选择
+	// console.log("Quality_html__JS--"+TestParameter);
+	// var opn=window.opener;
+	// alert('GlobalValueForCurrentReworkedEngineID--'+opn.GlobalValueForCurrentReworkedEngineID);
+	// var parentName=opn.document.getElementById("ReworkStation5").value;
+	// alert("ReworkStation5----"+parentName);
+	
+
+  // var thisURL = document.URL;    
+  // var  getval =thisURL.split('?')[1];  
+  // var showval= getval.split("=")[1];  
+ 
+  //    alert(showval);  
+  //    document.getElementById('engineInfor').innerHTML=showval;  
+
+
+	// window.returnValue = "";
+	// function aa()
+	// {
+	// 	window.GlobalValue_ReworkPosition=document.all("sel_sex").value
+	// 	// if (window.opener) {
+	// 	// 	window.opener.returnValue="opener returnValue";			
+	// 	// }
+	// 	// else
+	// 	// {
+	// 	// 	window.returnValue = document.all("sel_sex").value;
+	// 	// }
+	
+	// window.close();
+	// window.hasOpenWindow = false; 
+	// }
+</script>
+    <script type="text/javascript" src="Lib/jquery-1.12.0.min.js"></script>
+    <!-- <script type="text/javascript" src="Scripts/Test.js" ></script> -->
+    <script type="text/javascript" src="Scripts/QualityCheck.js" ></script>
+    <script type="text/javascript" src="ConnPHP.js" ></script>
+    <script type="text/javascript" src="jQuery-webcam-master/jquery.webcam.min.js" ></script>
+</html>

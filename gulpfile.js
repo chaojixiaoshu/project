@@ -36,46 +36,8 @@ const source = require('vinyl-source-stream');
 const lazypipe = require('lazypipe');
 const sass = require('node-sass');
 
-const origamiModules = [
-  {
-    source: 'http://www.ft.com/__origami/service/build/v2/bundles/js?modules=o-gallery@^1.7.6',
-    dest: './app/origami/o-gallery.js'
-  },
-  {
-    source: 'http://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-gallery@^1.7.6',
-    dest: './app/origami/o-gallery.css'
-  }
-];
-
-// fetch contents from `origamiModules.source` and write to `origamiModules.dest`.
-gulp.task('origami', () => {
-  return co(function *() {
-    const results = yield Promise.all(origamiModules.map(module => {
-      console.log(`fetching ${module.source}`);
-  // After getting response from url, return a new object consisting of url's content and file name to write.
-      return got(module.source)
-        .then(response => {
-          return {
-            dest: module.dest,
-            body: response.body
-          }
-        }, (error) => {
-  // return error if network failed.          
-          return Promise.reject(error);
-        });
-    }));    
 
 
-    yield Promise.all(results.map(res => {
-      return fs.writeFile(res.dest, res.body, 'utf8');
-    }));
-
-  })
-  .catch((err) => {
-  // catch any error if there are.  
-    console.error(err.stack);
-  });
-});
 
 // Fetch latest content from home page, and update `app/index.html`
 gulp.task('home', () => {
@@ -111,60 +73,15 @@ gulp.task('home', () => {
   });
 })
 
-// To access the api you need to send cookie PHPSESSID.
-gulp.task('story', () => {
-  return co(function *() {
-    const date = new Date();
-    const timeStamp = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;  
-    // const cookies = yield got('https://backyard.ftchinese.com/falcon.php/cmsusers/login')
-    // .then(response => {
-    //   const cookies = response.headers['set-cookie'].map(cookie => {
-    //      const obj =  Cookie.parse(cookie);
-    //      return `${obj.key}=${obj.value}`;
-    //   });
-    //   return cookies.join(';');
-    // });
 
-    const cookie = `PHPSESSID=78f011e58763cbca4400e42b265d4e33; ftcms_uid=13; ftcms_username=oliver.zhang; ftcms_groups=editor`;
-
-    const response = yield got(`https://backyard.ftchinese.com/falcon.php/homepage/getstoryapi/${timeStamp}`, {
-      'headers': {
-        'user-agent': 'ftc',
-        'cookie': cookie
-      }  
-    });
-
-    yield fs.writeFile('stories.json', response.body, 'utf8');
-  })
-  .catch(err => {
-    console.log(err);
-  });
+gulp.task('images', function () {
+  return gulp.src('app/images/**/*')
+    .pipe($.imagemin({
+      progressive: true,
+      interlaced: true
+    }))
+    .pipe(gulp.dest('dist/images'));
 });
-
-// Get the nav.json.
-gulp.task('nav', () => {
-  return got(`http://m.ftchinese.com/eaclient/apijson.php`, {
-    method: 'POST',
-    body: JSON.stringify({
-      head: {
-        transactiontype: '11001',
-        source: 'web'
-      },
-      body: {
-        ielement: {}
-      }
-    })
-  })
-  .then(response => {
-    console.log('updated ./app/api/page/nav.json');
-    console.log (response.body);
-    return fs.writeFile('./app/api/page/nav.json', response.body, 'utf8');
-  })
-  .catch(error => {
-    console.error(error.stack);
-  });
-});
-
 // Compile SCSS
 gulp.task('styles', function () {
   const DEST = '.tmp/styles';
@@ -191,11 +108,6 @@ gulp.task('styles', function () {
 });
 
 
-gulp.task('ad', function () {
-  return gulp.src('app/m/marketing/*')
-    .pipe(gulp.dest('dist/m/marketing'));
-});
-
 gulp.task('jshint', function () {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.jshint())
@@ -220,14 +132,7 @@ gulp.task('html', gulp.series('styles', () => {
     .pipe(gulp.dest('dist'));
 }));
 
-gulp.task('images', function () {
-  return gulp.src('app/images/**/*')
-    .pipe($.imagemin({
-      progressive: true,
-      interlaced: true
-    }))
-    .pipe(gulp.dest('dist/images'));
-});
+
 
 // Launch static server
 gulp.task('serve', 
@@ -238,7 +143,7 @@ gulp.task('serve',
     browserSync.init({
       server: {
         baseDir: ['app', '.tmp'],
-        index: 'index.html',
+        index: 'EPRS.html',
         routes: {
           '/bower_components': 'bower_components'
         }
@@ -270,7 +175,7 @@ gulp.task('clean', function() {
   });
 });
 
-gulp.task('build', gulp.parallel('jshint', 'html', 'images', /*'fonts', 'extras',*/ 'ad'));
+gulp.task('build', gulp.parallel('jshint', 'html', 'images'/*'fonts', 'extras',*/ ));
 
 // Various copy tasks.
 gulp.task('copy:cssjs', () => {
@@ -279,49 +184,19 @@ gulp.task('copy:cssjs', () => {
   const jsDest = 'dev_www/frontend/tpl/next/scripts';
   
 
-  let cssStream = gulp.src(['app/origami/*.css', 'dist/styles/*.css'])
+  let cssStream = gulp.src(['dist/styles/*.css'])
     .pipe(gulp.dest(`../${staticDest}`))
     .pipe(gulp.dest(`../${cssDest}`))
     .pipe(gulp.dest(`../testing/${cssDest}`));
 
-  // let partialsCssStream = gulp.src('dist/styles/partials/*.css')
-  //   .pipe(gulp.dest(`../${cssDest}`))
-  //   .pipe(gulp.dest(`../testing/${cssDest}`));
 
-  let jsStream = gulp.src(['app/origami/*.js', 'dist/scripts/*.js'])
+  let jsStream = gulp.src(['dist/scripts/*.js'])
     .pipe(gulp.dest(`../${staticDest}`))
     .pipe(gulp.dest(`../${jsDest}`))
     .pipe(gulp.dest(`../testing/${staticDest}`))
     .pipe(gulp.dest(`../testing/${jsDest}`));
   return merge(cssStream, jsStream);
 });
-
-gulp.task('copy:marketing', () => {
-  const dest = 'dev_www/frontend/tpl/marketing';
-  const mobileRootdest = 'dev_www/mobile_webroot/m/marketing';
-  gulp.src('dist/m/marketing/*')
-    .pipe(gulp.dest(`../${dest}`))
-    .pipe(gulp.dest(`../testing/${dest}`))
-    .pipe(gulp.dest(`../${mobileRootdest}`))
-    .pipe(gulp.dest(`../testing/${mobileRootdest}`));
-
-  const wwwrootDest = 'dev_www/webroot';
-  const mobilewwwrootDest = 'dev_www/mobile_webroot';
-  return gulp.src('dist/m/marketing/a.html')
-    .pipe(gulp.dest(`../${wwwrootDest}`))
-    .pipe(gulp.dest(`../testing/${wwwrootDest}`))
-    .pipe(gulp.dest(`../${mobilewwwrootDest}`))
-    .pipe(gulp.dest(`../testing/${mobilewwwrootDest}`));
-
-});
-
-gulp.task('copy:apipage', () => {
-  const dest = 'dev_www/frontend/tpl/next/api/page'
-  return gulp.src('app/api/page/*')
-    .pipe(gulp.dest(`../${dest}`))
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
-
 
 
 gulp.task('copy:time', () => {
@@ -337,130 +212,23 @@ gulp.task('copy:time', () => {
     .pipe(gulp.dest(`../testing/${dest}`));
 });
 
-gulp.task('copy:tpl', () => {
-  const dest = 'dev_www/frontend/tpl/next';
 
-  return gulp.src(['app/templates/partials*/**/*', 'app/templates/html*/**/*'])
-    .on('error', (err) => {
-      console.error(err.stack);
-    })
-    .pipe($.replace(/([\r\n])[ \t]+/g, '$1'))
-    .pipe($.replace(/(\r\n)+/g, '\r\n'))
-    .pipe($.replace(/(\n)+/g, '\n')) 
-    .pipe(gulp.dest(`../${dest}`))
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
+gulp.task('copy:script', () => {
+  const jsDest = 'Scripts/histogram';
 
-gulp.task('copy:p0', () => {
-  const dest = 'dev_www/frontend/tpl/corp';
-  return gulp.src('app/templates/p0.html')
-    .pipe($.replace(/([\r\n])[ \t]+/g, '$1'))
-    .pipe($.replace(/(\r\n)+/g, '\r\n'))
-    .pipe($.replace(/(\n)+/g, '\n')) 
-    .on('error', (err) => {
-      console.error(err.stack);
-    })
-    .pipe(gulp.dest(`../${dest}`))
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
-
-
-gulp.task('copytest:cssjs', () => {
-  const staticDest = 'dev_www/frontend/static/n';
-  const cssDest = 'dev_www/frontend/tpl/next/styles';
-  const jsDest = 'dev_www/frontend/tpl/next/scripts';
-  
-
-  let cssStream = gulp.src(['app/origami/*.css', 'dist/styles/*.css'])
-    .pipe(gulp.dest(`../testing/${cssDest}`));
-
-  let partialsCssStream = gulp.src('dist/styles/partials/*.css')
-    .pipe(gulp.dest(`../testing/${cssDest}`));
-
-  let jsStream = gulp.src(['app/origami/*.js', 'dist/scripts/*.js'])
-    .pipe(gulp.dest(`../testing/${staticDest}`))
+  return gulp.src(['dist/scripts/*.js'])
+    .pipe(gulp.dest(`../${jsDest}`))
     .pipe(gulp.dest(`../testing/${jsDest}`));
-
-  return merge(cssStream, partialsCssStream, jsStream);
 });
 
-gulp.task('copytest:marketing', () => {
-  const dest = 'dev_www/frontend/tpl/marketing';
-  const mobileRootdest = 'dev_www/mobile_webroot/m/marketing';
-  return gulp.src('dist/m/marketing/*')
-    .pipe(gulp.dest(`../testing/${dest}`))
-    .pipe(gulp.dest(`../testing/${mobileRootdest}`))
-    ;
-});
-
-gulp.task('copytest:apipage', () => {
-  const dest = 'dev_www/frontend/tpl/next/api/page'
-  return gulp.src('app/api/page/*')
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
-
-
-
-gulp.task('copytest:time', () => {
-  const dest = 'dev_www/frontend/tpl/next/timestamp';
-  const timeStamp = new Date().getTime();
-// Create a virtual vinyl stream  
-  const stream = source('timestamp.html');
-// write date to the stream.  
-  stream.end(timeStamp.toString());
-// Use the steam with gulp.
-  return stream
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
-
-gulp.task('copytest:tpl', () => {
-  const dest = 'dev_www/frontend/tpl/next';
-
-  return gulp.src(['app/templates/partials*/**/*', 'app/templates/html*/**/*'])
-    .on('error', (err) => {
-      console.error(err.stack);
-    })
-    .pipe($.replace(/([\r\n])[ \t]+/g, '$1'))
-    .pipe($.replace(/(\r\n)+/g, '\r\n'))
-    .pipe($.replace(/(\n)+/g, '\n')) 
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
-
-gulp.task('copytest:p0', () => {
-  const dest = 'dev_www/frontend/tpl/corp';
-  return gulp.src('app/templates/p0.html')
-    .pipe($.replace(/([\r\n])[ \t]+/g, '$1'))
-    .pipe($.replace(/(\r\n)+/g, '\r\n'))
-    .pipe($.replace(/(\n)+/g, '\n')) 
-    .on('error', (err) => {
-      console.error(err.stack);
-    })
-    .pipe(gulp.dest(`../testing/${dest}`));
-});
 
 
 gulp.task('copy', gulp.series(
   'clean',
   'build', 
   gulp.parallel(
-    'copy:cssjs', 
-    'copy:marketing', 
-    'copy:apipage', 
-    'copy:tpl', 
-    'copy:p0', 
+    'copy:cssjs',  
     'copy:time'
   )
 ));
 
-gulp.task('copytest', gulp.series(
-  'clean',
-  'build',
-  gulp.parallel(
-    'copytest:cssjs',
-    'copytest:marketing',
-    'copytest:apipage',
-    'copytest:time',
-    'copytest:tpl',
-    'copytest:p0'
-  )
-))

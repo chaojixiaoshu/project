@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>返修车新增</title>
+	  <style type="text/css">
+          #EnginePlantReworkSystem{
+          color:#FFFFFF;
+          width:960px;
+          height:60px;
+          background-color:#2914E5;
+          border-color:#2914E5;
+          text-align:center;
+          margin-left:auto; 
+          margin-right:auto;
+          font-family:Times New Roman;
+          font-size:30px;
+          font-weight:bold;
+          line-height:60px;
+          }
+		  #Div_modulename{
+		  color:#FFFFFF;
+		  width:960px;
+		  height:40px;
+		  text-align:center;
+		  margin-left:auto; 
+		  margin-right:auto;
+		  }
+		 .modulename{
+		color:#FFFFFF;
+		width:240px;
+		height:45px;
+		background-color:#2914E5;
+		text-align:center;
+		margin-left:0px; 
+		margin-right:0px;
+		font-family:宋体;
+		font-size:25px;
+		font-weight:bold;
+		line-height:40px;
+		float:left;
+		}
+		#modulenamebuffer{
+		border-left: 0px solid #FFFFFF;
+		border-right: 2px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		#modulenamedatabase{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameclass{
+		border: 2px solid #FFFFFF;
+		}
+		#modulenameprocess{
+		border-left: 2px solid #FFFFFF;
+		border-right: 0px solid #FFFFFF;
+		border-top: 2px solid #FFFFFF;
+		border-bottom: 2px solid #FFFFFF;
+		}
+		.Div_modulecontent{
+		width:960px;
+		height:400px;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-top:20px;
+		background-color:#F5F5F5;
+		border-left: 2px solid #C0C0C0;
+		border-right: 2px solid #C0C0C0;
+		border-top: 4px solid #C0C0C0;
+		border-bottom: 4px solid #C0C0C0;	
+		}
+		#Div_modulecontent1{
+		width:960px;
+		height:100%;
+		}
+		#engineAddDataTitle{
+		color:#000000;
+		background-color:#C0C0C0;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:20px;
+		font-family:宋体;
+		font-size:20px;
+		font-weight:bold;
+		line-height:35px;
+		}
+		.icon-doubleArrow:before{content:'\e602';}
+		.big-title{list-style-type:none; text-align:left; margin-left:25%; margin-top:30px; margin-bottom:10px;
+				font-weight:bold;font-family:宋体;font-size:16px; color:#000000 }
+		.small-title{list-style-type:none;text-align:left; margin-left:28%; margin-bottom:10px; font-family:宋体;font-size:15px;color:#9F4D95}
+		a:link { text-decoration: none;}
+		a:hover { text-decoration: underline;font-weight:bold;color:#9F4D95}
+		a:visited{}
+
+
+		.lightbox{
+			position: fixed;
+		    top: 0px;
+		    left: 0px;
+		    height: 100%;
+		    width: 100%;
+		    z-index: 7;
+		    opacity: 0.3;
+		    display: block;
+		    background-color: rgb(0, 0, 0);
+		    display: none;
+		}
+		.pop,iframe{
+			position: absolute;
+		    left: 50%;
+		    top:0;
+			width: 960px;
+		    height: 100%;
+		    margin-left: -480px;
+		    z-index: 9;
+
+
+		}
+
+
+      </style>
+
+      	<script type="text/javascript">
+		function showPdf(isShow){
+			// alert("进入点击响应函数");
+			var state = "";
+			if(isShow){
+				state = "block";
+			}else{
+				state = "none";
+			}
+			var pop = document.getElementById("pop");
+			pop.style.display = state;
+			var lightbox = document.getElementById("lightbox");
+			lightbox.style.display = state;
+		}
+		function close(){
+			showPdf(false);
+		}
+
+	</script>
+
+</head>
+
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修发动机" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('ReworkProcess.html','_self')">
+      <!--模块标题<div id="modulenamebuffer" class="modulename">返修车</div>
+		<div id="modulenamedatabase" class="modulename">返修数据库</div>
+		<div id="modulenameclass" class="modulename"></div>
+		<div id="modulenameprocess" class="modulename">返修工艺</div>-->		
+	</div>
+     
+<!--模块内容    新增信息输入-->
+	<div id="Div_modulecontent1"  class="Div_modulecontent">
+		<div id="engineAddDataTitle" class="engineposition">返修工艺</div>
+		<div id="engineAddDatacontent" class="engineposition" >
+			 <ul>                               
+                <li class="big-title"><a target="_blank">一、M270返修工艺</a></li> 
+
+                <li class="small-title">
+                	<a href="pdfDemo/web/viewer.html?file=270拆卸SWI.pdf" target="pdfContainer" onclick="showPdf(true)">1.1 M270拆检标准作业指导书——EAR-SWI270-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=270装配SWI.pdf" target="pdfContainer" onclick="showPdf(true)">1.2 M270装配标准作业指导书——EAR-SWI270-002</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=270拆检WI.pdf" target="pdfContainer" onclick="showPdf(true)">1.3 M270拆检作业指导书——EAR-WI270-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=270-装配WI.pdf" target="pdfContainer" onclick="showPdf(true)">1.4 M270装配作业指导书——EAR-WI270-002</a>
+                </li>
+                     
+                <li class="big-title"><a target="_blank">二、M274返修工艺</a></li>            
+                <li class="small-title">
+                	<a href="pdfDemo/web/viewer.html?file=274-水冷-拆卸SWI.pdf" target="pdfContainer" onclick="showPdf(true)">2.1 M274拆检标准作业指导书——EAR-SWI274-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=274-水冷-装配SWI.pdf" target="pdfContainer" onclick="showPdf(true)">2.2 M274装配标准作业指导书——EAR-SWI274-002</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=274-风冷-拆卸WI.pdf" target="pdfContainer" onclick="showPdf(true)">2.3 M274拆检作业指导书——EAR-WI274-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=274-水冷-装配WI.pdf" target="pdfContainer" onclick="showPdf(true)">2.4 M274装配作业指导书——EAR-WI274-002</a>
+                </li>   
+                  
+                <li class="big-title"><a target="_blank">三、M276返修工艺</a></li>            
+                <li class="small-title">
+                	<a href="pdfDemo/web/viewer.html?file=276-拆卸SWI.pdf" target="pdfContainer" onclick="showPdf(true)">3.1 M276拆检标准作业指导书——EAR-SWI276-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=276-装配SWI.pdf" target="pdfContainer" onclick="showPdf(true)">3.2 M276装配标准作业指导书——EAR-SWI276-002</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=276_WI DELA DSB.pdf" target="pdfContainer" onclick="showPdf(true)">3.3 M276拆检作业指导书——EAR-WI276-001</a>
+                </li>            
+                <li class="small-title">
+                    <a href="pdfDemo/web/viewer.html?file=276_WI DELA ASB.pdf" target="pdfContainer" onclick="showPdf(true)">3.4 M276装配作业指导书——EAR-WI276-002</a>
+                </li>         
+                        
+              </ul>
+
+            <div class="lightbox" id="lightbox"></div>
+			<div id="pop" class="pop" style="display: none;">
+				<a href="javascript:close()" style="position: absolute;	right: -90px;display: inline-block;width: 80px;height: 30px;" id="close">关闭</a>
+				<iframe src="" frameborder="0" id="pdfContainer" name="pdfContainer"></iframe>
+			</div>
+
+			<object classid="clsid:CA8A9780-280D-11CF-A24D-444553540000" id="Pdf1" width="100%" height="120%">
+              <param name="_Version" value="327680">
+              <param name="_ExtentX" value="2646">
+              <param name="_ExtentY" value="1323">
+              <param name="_StockProps" value="0">
+              <param name="SRC" value="b.pdf">
+            </object>
+
+		</div>
+<!-- 
+		<div>
+			<iframe src="C:\Users\gh\Desktop\北京航空航天大学+机械工程+高浩.pdf" width="800" height="600"></iframe>
+		</div>
+		<div>
+			<embed width="800" height="600" src="C:\Users\gh\Desktop\北京航空航天大学+机械工程+高浩.pdf"> </embed> 
+		</div> -->
+     </div>
+        
+        
+</body>
+</html>
+<script type="text/javascript">
+    // document.onkeydown = function(event){
+    //     if ((event.ctrlKey)&&(event.keyCode==115 || event.keyCode==83)){
+    //         event.returnValue=false;
+    //         return;
+    //     }
+    // }
+
+		function keydown(){
+	    if ((event.keyCode==91 ))   //屏蔽 command +s
+	      //alert("sda");
+	     event.keyCode=0;
+	     event.returnValue=false; //&&(event.keyCode==83)
+	  }
+	  document.onkeydown = keydown;
+</script>

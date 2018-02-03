@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发动机工厂返修管理系统</title>
+<style type="text/css">
+	#EnginePlantReworkSystem{
+	color:#FFFFFF;
+	width:960px;
+	height:60px;
+	background-color:#2914E5;
+	border-color:#2914E5;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	font-family:Times New Roman;
+	font-size:30px;
+	font-weight:bold;
+	line-height:60px;
+	}
+	#Div_modulename{
+	color:#FFFFFF;
+	width:960px;
+	height:40px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	}
+	#Div_modulecontent1{
+	width:960px;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-top:20px;
+	}
+	#Div_modulecontent2{
+	width:960px;
+	height:auto;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-top:6px;
+	background-color:#F5F5F5;
+	border-left: 2px solid #C0C0C0;
+	border-right: 2px solid #C0C0C0;
+	border-top: 4px solid #C0C0C0;
+	border-bottom: 4px solid #C0C0C0;	
+	}
+	#searcharea{
+	width:500px;
+	height:35px;
+	vertical-align:middle;
+	}
+	#searchbutton{
+	width:60px;
+	height:40px;
+	vertical-align:middle;
+	}
+	#searchlist{
+	width:120px;
+	height:40px;
+	vertical-align:middle;
+	}
+	.modulename{
+	color:#FFFFFF;
+	width:240px;
+	height:45px;
+	background-color:#2914E5;
+	text-align:center;
+	margin-left:0px; 
+	margin-right:0px;
+	font-family:宋体;
+	font-size:25px;
+	font-weight:bold;
+	line-height:40px;
+	float:left;
+	}
+	#modulenamebuffer{
+	border-left: 0px solid #FFFFFF;
+	border-right: 2px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	#modulenamedatabase{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameclass{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameprocess{
+	border-left: 2px solid #FFFFFF;
+	border-right: 0px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	.enginestateindes{
+	font-weight:bold;
+	}
+
+	#enginelisttitle{
+	color:#000000;
+	background-color:#C0C0C0;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-bottom:25px;
+	font-family:宋体;
+	font-size:20px;
+	font-weight:bold;
+	line-height:35px; 
+	}
+	#engineproblemnum{
+	margin-top:20px; 
+	margin-left:15px; 
+	margin-bottom:10px; 
+	float:left;
+	width:500px;
+	}
+	#enginetypenum{
+	margin-top:20px; 
+	margin-left:30px;
+	margin-bottom:10px;
+	float:left; 
+	width:316px;
+	overflow:outo;
+	}
+	#enginelistcontent{
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	}
+	table{  
+	border: 1px solid #CCCCCC; 
+	}  
+	td{  
+	border-bottom: 1px solid #CCCCCC;  
+	border-left: 1px solid #CCCCCC;  
+	}  
+	.EditCell_TextBox {  
+	width: 90%;  
+	border:1px solid #0099CC;  
+	}  
+	.EditCell_DropDownList {  
+	width: 90%;  
+	}  
+	.showTableNo{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:32px;
+	}
+	.showTableNum{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:50px;
+	}
+	.showTableState{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:80px;
+	}
+	.showTableTime{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:90px;
+	}
+	.showTableType{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:110px;
+	}
+	.showTableID{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:150px;
+	}
+	.showTableProblem{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:140px;
+	}
+	.showTablePosition{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:50px;
+	}
+	.showTablePriority{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:60px;
+	}
+	.showTableAddButton{
+		text-align:center;
+		background-color:#FFFFFF;
+		width:140px;
+	}
+	#Div_modulecontent3{
+		width:960px;
+		height:auto;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-top:6px;
+		background-color:#F5F5F5;
+		border-left: 2px solid #C0C0C0;
+		border-right: 2px solid #C0C0C0;
+		border-top: 4px solid #C0C0C0;
+		border-bottom: 4px solid #C0C0C0;	
+	}
+	#Div_ChartTitle{
+		color:#000000;
+		background-color:#C0C0C0;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:25px;
+		font-family:宋体;
+		font-size:20px;
+		font-weight:bold;
+		line-height:35px; 
+	}
+	#Div_Chartcontent{
+		width:960px;
+		height:auto;
+		text-align:center;
+		margin-left:auto; 
+		margin-right:auto;
+		margin-top:60px;
+	}
+	.ChartSetClass{
+		/*width:120px;*/
+		height:30px;
+		vertical-align:middle;
+	}
+	#ChartTitleInput{
+		width:320px;
+
+	}
+
+
+
+
+
+
+
+</style>
+<!--<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>-->
+     <script type="text/javascript" src="Lib/jquery-1.12.0.min.js"></script>
+     <script type="text/javascript" src="Lib/echarts.min.js"></script>
+     <script type="text/javascript" src="Scripts/ReworkDatabaseEdit.js" ></script>
+
+
+</head>
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修发动机" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('ReworkProcess.html','_self')">	
+	</div>
+	
+<!--搜索-->
+	<div id="Div_modulecontent1" class="Div_modulecontent">
+		<select id="searchlist" class="btn">  
+			<option value="全部">全部</option> 
+			<option value="待返修">待返修</option> 
+			<option value ="发动机号">发动机号</option>  
+			<option value ="返修原因">返修原因</option>  
+			<option value="日期">日期</option>  
+ 			<option value="机型">机型</option>  
+ 			 			
+		</select>
+		<input type="text" name="s" id="searcharea" class="inputText" placeholder="返修车搜索" x-webkit-speech>
+        <button id="searchbutton" class="btn" title="SEARCH" onClick="clickSearchButton()">搜索</button>	
+	</div>
+	 
+<!--模块内容    表格-->
+<!-- 	<div id="Div_modulecontent2"  class="Div_modulecontent">
+		<div id="enginelisttitle" class="enginelist">搜索结果</div>
+		<div id="enginelistcontent" class="enginelist" >
+			<center>
+			<form id="form1" name="form1" method="post" action="">  
+				<table width="698" border="0" cellpadding="0" cellspacing="0" id="tabProduct">  
+				    <tr>  
+				      <td width="32" align="center" bgcolor="#EFEFEF" Name="Num"><input type="checkbox" name="checkbox" value="checkbox" /></td>  
+				      <td width="40" align="center" bgcolor="#EFEFEF" Name="Num" EditType="TextBox" style="font-weight:bold;">序号</td>  
+				      <td width="40" align="center" bgcolor="#EFEFEF" Name="Time" EditType="TextBox"style="font-weight:bold;">时间</td>
+				      <td width="120" align="center" bgcolor="#EFEFEF" Name="ProductName" EditType="DropDownList" style="font-weight:bold;"DataItems="{text:'2740108407',value:'2740108407'},{text:'2740105608',value:'2740105608'},{text:'2700101903',value:'2700101903'},{text:'2700102003',value:'2700102003'}">机型</td>  
+				      <td width="60" align="center" bgcolor="#EFEFEF" Name="Amount" EditType="TextBox"style="font-weight:bold;">发动机号</td>  
+				      <td width="150" align="center" bgcolor="#EFEFEF" Name="Price" EditType="TextBox"style="font-weight:bold;">返修原因</td>  
+				      <td width="50" align="center" bgcolor="#EFEFEF" Name="SumMoney" EditType="TextBox"style="font-weight:bold;">位置</td>  
+				      <td width="60" align="center" bgcolor="#EFEFEF" Name="SumMoney" EditType="TextBox"style="font-weight:bold;">优先级</td>  
+				    </tr>  
+				    <tr>  
+				      <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox2" value="checkbox" /></td>  
+				      <td align="center" bgcolor="#FFFFFF">1</td>  
+				      <td align="center" bgcolor="#FFFFFF" Value="20161010">20161010</td>  
+				      <td align="center" bgcolor="#FFFFFF">2740108407</td>  
+				      <td align="center" bgcolor="#FFFFFF">27492010456789</td>  
+				      <td align="center" bgcolor="#FFFFFF">进排扭</td>  
+				      <td align="center" bgcolor="#FFFFFF">11</td>  
+				      <td align="center" bgcolor="#FFFFFF">001</td> 
+				    </tr>  
+				    <tr>  
+				      <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox22" value="checkbox" /></td>  
+				      <td align="center" bgcolor="#FFFFFF">2</td>  
+				      <td align="center" bgcolor="#FFFFFF" Value="20161012">20161012</td>  
+				      <td align="center" bgcolor="#FFFFFF">2700101903</td>  
+				      <td align="center" bgcolor="#FFFFFF">27091010104480</td>  
+				      <td align="center" bgcolor="#FFFFFF">CCT</td> 
+				      <td align="center" bgcolor="#FFFFFF">12</td>  
+				      <td align="center" bgcolor="#FFFFFF">002</td>  
+				    </tr>  
+				    <tr>  
+				      <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox22" value="checkbox" /></td>  
+				      <td align="center" bgcolor="#FFFFFF">3</td>  
+				      <td align="center" bgcolor="#FFFFFF" Value="20161012">20161012</td>  
+				      <td align="center" bgcolor="#FFFFFF">2700102003</td>  
+				      <td align="center" bgcolor="#FFFFFF">27092010104490</td>  
+				      <td align="center" bgcolor="#FFFFFF">VVT</td> 
+				      <td align="center" bgcolor="#FFFFFF">21</td>  
+				      <td align="center" bgcolor="#FFFFFF">003</td>  
+				    </tr>  
+				    <tr>  
+				      <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox22" value="checkbox" /></td>  
+				      <td align="center" bgcolor="#FFFFFF">4</td>  
+				      <td align="center" bgcolor="#FFFFFF" Value="20161012">20161015</td>  
+				      <td align="center" bgcolor="#FFFFFF">2740105608</td>  
+				      <td align="center" bgcolor="#FFFFFF">27491010479665</td>  
+				      <td align="center" bgcolor="#FFFFFF">油压</td>  
+				      <td align="center" bgcolor="#FFFFFF">31</td> 
+				      <td align="center" bgcolor="#FFFFFF">004</td>  
+				    </tr>  
+				    <tr>  
+				      <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox22" value="checkbox" /></td>  
+				      <td align="center" bgcolor="#FFFFFF">5</td>  
+				      <td align="center" bgcolor="#FFFFFF" Value="20161012">20161016</td>  
+				      <td align="center" bgcolor="#FFFFFF">2700101903</td>  
+				      <td align="center" bgcolor="#FFFFFF">27091010104480</td>  
+				      <td align="center" bgcolor="#FFFFFF">油位开关</td>  
+				      <td align="center" bgcolor="#FFFFFF">22</td> 
+				      <td align="center" bgcolor="#FFFFFF">005</td>  
+				    </tr>  
+				</table>  		  
+				<br />  
+			</form> 
+			</center> 		  
+			<script language="javascript" src="GridEdit.js"></script>  
+			<script language="javascript">  
+			var tabProduct = document.getElementById("tabProduct");  		  
+			// 设置表格可编辑  
+			// 可一次设置多个，例如：EditTables(tb1,tb2,tb2,......)  
+			EditTables(tabProduct);  		  
+			</script>  
+		</div>		
+	</div> -->
+<!--模块内容    自动搜索数据库显示区-->
+	<div id="Div_modulecontent2"  class="Div_modulecontent">
+		<div id="enginelisttitle" class="enginelist">自动库搜索结果</div>
+		<div id="enginelistcontent" class="enginelist" >
+			<center>
+			<form id="form1" name="form1" method="post" action="">  
+				<table width="830" border="0" cellpadding="0" cellspacing="0" class="showTable" id="DataShowTable">  
+				    <tr>  
+				      <!-- <td  class="showTableNo"><input type="checkbox" name="checkbox" value="checkbox" /></td>   -->
+				      <td  class="showTableNum" EditType="TextBox" style="font-weight:bold;">序号</td>  
+				      <td  class="showTableState" EditType="TextBox" style="font-weight:bold;">状态</td>
+				      <td  class="showTableTime" EditType="TextBox" style="font-weight:bold;">时间</td>
+				      <td  class="showTableType" EditType="DropDownList" style="font-weight:bold;"DataItems="{text:'2740108407',value:'2740108407'},{text:'2740105608',value:'2740105608'},{text:'2700101903',value:'2700101903'},{text:'2700102003',value:'2700102003'}">机型</td>  
+				      <td  class="showTableID" EditType="TextBox"style="font-weight:bold;">发动机号</td>  
+				      <td  class="showTableProblem" EditType="TextBox"style="font-weight:bold;">返修原因</td>  
+				      <td  class="showTablePosition" EditType="TextBox"style="font-weight:bold;">位置</td>  
+                      <td  class="showTableAddButton" style="font-weight:bold;"><a style='text-decoration:none;color:black;' href='javascript:;' id="addButton">操作&nbsp;</a></td>  
+				    </tr>  		   
+				</table>  		  
+				<br />  
+			</form> 
+			</center> 		  
+			<!-- <script language="javascript" src="ConnPHP.js"></script>   -->
+		</div>		
+	</div>
+
+<!--模块内容    图表显示区-->
+	<div id="Div_modulecontent3"  class="Div_modulecontent">
+		<div id="Div_ChartTitle" class="Div_ChartClass">图表自动生成</div>
+		<div id="Div_ChartChoose" class="Div_ChartClass" >	
+			<select id="ChartTypeList" class="ChartSetClass">  
+				<option value ="柱状图">柱状图</option>  
+				<option value ="饼图">饼图</option>  
+			</select>
+			<input type="text" name="s" id="ChartTitleInput" class="ChartSetClass" placeholder="请输入图表标题">
+	        <button id="ChartButton" class="ChartSetClass" title="ChartBuild" onClick="clickChartButton()">图表生成</button>		
+		</div>	
+		<div id="Div_Chartcontent" class="Div_ChartClass" style="width: 600px;height:400px;"></div>
+
+	</div>
+
+
+	
+</body>
+</html>

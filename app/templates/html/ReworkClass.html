@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发动机工厂返修管理系统</title>
+<style type="text/css">
+	#EnginePlantReworkSystem{
+	color:#FFFFFF;
+	width:960px;
+	height:60px;
+	background-color:#2914E5;
+	border-color:#2914E5;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	font-family:Times New Roman;
+	font-size:30px;
+	font-weight:bold;
+	line-height:60px;
+	}
+	#Div_modulename{
+	color:#FFFFFF;
+	width:960px;
+	height:40px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	}
+	.Div_modulecontent{
+	width:960px;
+	height:400px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-top:20px;
+	background-color:#F5F5F5;
+	border-left: 2px solid #C0C0C0;
+	border-right: 2px solid #C0C0C0;
+	border-top: 4px solid #C0C0C0;
+	border-bottom: 4px solid #C0C0C0;	
+	}
+	.modulename{
+	color:#FFFFFF;
+	width:240px;
+	height:45px;
+	background-color:#2914E5;
+	text-align:center;
+	margin-left:0px; 
+	margin-right:0px;
+	font-family:宋体;
+	font-size:25px;
+	font-weight:bold;
+	line-height:40px;
+	float:left;
+	}
+	#modulenamebuffer{
+	border-left: 0px solid #FFFFFF;
+	border-right: 2px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	#modulenamedatabase{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameclass{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameprocess{
+	border-left: 2px solid #FFFFFF;
+	border-right: 0px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	#Div_ReworkArea1{
+	border-top: 200px solid #FFFFFF;
+	}
+	#Div_ReworkArea2{
+	border-top: 20px solid #FFFFFF;
+	}
+	.reworkclass{
+	color:#000000;
+	width:240px;
+	height:80px;
+	background-color:#CCCCCC;
+	text-align:center;
+	margin-left:0px; 
+	margin-right:0px;
+	font-family:宋体;
+	font-size:25px;
+	font-weight:bold;
+	line-height:40px;
+	border-right: 20px solid #FFFFFF;
+	border-left: 20px solid #FFFFFF;
+	}
+
+</style>
+
+</head>
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修发动机" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('ReworkProcess.html','_self')">
+
+<!--返修课堂   目录-->
+	<div id="Div_ReworkArea1" class="Div_ReworkArea">
+		<input id="reworkclass1" class="reworkclass" type=button value="质量分析精粹" onClick="window.open('ReworkClass.html','_self')">
+		<input id="reworkclass2" class="reworkclass" type=button value="质量分析方法" onClick="window.open('ReworkClass.html','_self')">
+	</div>
+	<div id="Div_ReworkArea2" class="Div_ReworkArea">
+		<input id="reworkclass3" class="reworkclass" type=button value="发动机教学堂" onClick="window.open('ReworkClass.html','_self')">
+		<input id="reworkclass4" class="reworkclass" type=button value="冷测试教学堂" onClick="window.open('ReworkClass.html','_self')">
+	</div>
+
+</div>
+	
+</body>
+</html>

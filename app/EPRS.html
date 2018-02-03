@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发动机工厂返修管理系统</title>
+<style type="text/css">
+	#EnginePlantReworkSystem{
+	color:#FFFFFF;
+	width:960px;
+	height:60px;
+	background-color:#2914E5;
+	border-color:#2914E5;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	font-family:Times New Roman;
+	font-size:30px;
+	font-weight:bold;
+	line-height:60px;
+	}
+	#Div_modulename{
+	color:#FFFFFF;
+	width:960px;
+	height:40px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	}
+	.Div_modulecontent{
+	width:960px;
+	height:400px;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-top:20px;
+	background-color:#F5F5F5;
+	border-left: 2px solid #C0C0C0;
+	border-right: 2px solid #C0C0C0;
+	border-top: 4px solid #C0C0C0;
+	border-bottom: 4px solid #C0C0C0;	
+	}
+	#Div_modulecontent2{
+	width:960px;
+/*	_height:280px; 
+	min-height:280px；*/
+	height:auto;
+	}
+	#Div_modulecontent3{
+	width:960px;
+	height:500px;
+	}
+	.modulename{
+	color:#FFFFFF;
+	width:240px;
+	height:45px;
+	background-color:#2914E5;
+	text-align:center;
+	margin-left:0px; 
+	margin-right:0px;
+	font-family:宋体;
+	font-size:25px;
+	font-weight:bold;
+	line-height:40px;
+	float:left;
+	}
+	#modulenamebuffer{
+	border-left: 0px solid #FFFFFF;
+	border-right: 2px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	#modulenamedatabase{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameclass{
+	border: 2px solid #FFFFFF;
+	}
+	#modulenameprocess{
+	border-left: 2px solid #FFFFFF;
+	border-right: 0px solid #FFFFFF;
+	border-top: 2px solid #FFFFFF;
+	border-bottom: 2px solid #FFFFFF;
+	}
+	.enginestateindes{
+	font-weight:bold;
+	}
+	#enginestatetitle{
+	color:#000000;
+	background-color:#C0C0C0;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-bottom:25px;
+	font-family:宋体;
+	font-size:20px;
+	font-weight:bold;
+	line-height:35px; 
+	}
+	#enginelisttitle{
+	color:#000000;
+	background-color:#C0C0C0;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-bottom:25px;
+	font-family:宋体;
+	font-size:20px;
+	font-weight:bold;
+	line-height:35px; 
+	}
+	#enginepositiontitle{
+	color:#000000;
+	background-color:#C0C0C0;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-bottom:20px;
+	font-family:宋体;
+	font-size:20px;
+	font-weight:bold;
+	line-height:35px;
+	}
+	#engineproblemnum{
+	margin-top:20px; 
+	margin-left:15px; 
+	margin-bottom:10px; 
+	float:left;
+	width:500px;
+	}
+	#enginetypenum{
+	margin-top:20px; 
+	margin-left:30px;
+	margin-bottom:10px;
+	float:left; 
+	width:316px;
+	overflow:outo;
+	}
+	#enginelistcontent{
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	margin-bottom:30px;
+	height:auto;
+/*_height:200px; min-height:200px；*/
+	}
+	table{  
+	border: 1px solid #CCCCCC; 
+	}  
+	td{  
+	border-bottom: 1px solid #CCCCCC;  
+	border-left: 1px solid #CCCCCC;  
+	}  
+	.EditCell_TextBox {  
+	width: 90%;  
+	border:1px solid #0099CC;  
+	}  
+	.EditCell_DropDownList {  
+	width: 90%;  
+	}  
+	.showTableNo{		text-align:center;		background-color:#FFFFFF;		width:32px;	}
+	.showTableNum{		text-align:center;		background-color:#FFFFFF;		width:50px;	}
+	.showTableTime{		text-align:center;		background-color:#FFFFFF;		width:40px;	}
+	.showTableType{		text-align:center;		background-color:#FFFFFF;		width:120px;	}
+	.showTableID{		text-align:center;		background-color:#FFFFFF;		width:160px;	}
+	.showTableProblem{		text-align:center;		background-color:#FFFFFF;		width:140px;	}
+	.showTablePosition{		text-align:center;		background-color:#FFFFFF;		width:50px;	}
+	.showTablePriority{		text-align:center;		background-color:#FFFFFF;		width:60px;	}
+	.showTableAddButton{		text-align:center;		background-color:#FFFFFF;		width:120px;	}
+
+	.overlay-shadow { /*返修点击后覆盖页面的div*/
+	    position: fixed;
+	    z-index: 1;
+	    opacity: 1;
+	    transition: opacity .3s ease-in-out;
+	    background: rgba(0,0,0,.7);
+	    height: 150%;
+	    width: 100%;
+	    top: 0;
+	    left: 0;
+	}
+	#preview-box { /*返修点击后选择返修台的div*/
+		right:40%;
+		top:580px;
+	    bottom: auto;
+	    width: 300px;
+	    overflow: visible;
+	    position: absolute;
+	    z-index: 60000;
+	    font-family:宋体;
+		font-size:20px;
+		/*font-weight:bold;*/
+		line-height:35px;
+		color:#000000;
+		opacity: 1;
+		background: #F5F5F5;
+	}
+
+
+</style>
+
+</head>
+<body>
+<!--软件标题-->
+	<div id="EnginePlantReworkSystem">
+	北京奔驰返修管理系统
+	</div>
+	
+<!--模块标题-->
+	<div id="Div_modulename">
+		<input id="modulenamebuffer" class="modulename" type=button value="返修发动机" onClick="window.open('EPRS.html','_self')">
+		<input id="modulenamedatabase" class="modulename" type=button value="返修数据库" onClick="window.open('ReworkDatabase.html','_self')">
+		<input id="modulenameclass" class="modulename" type=button value="返修质量分析" onClick="window.open('ReworkClass.html','_self')">
+		<input id="modulenameprocess" class="modulename" type=button value="返修工艺" onClick="window.open('ReworkProcess.html','_self')">	
+	</div>
+	
+<!--模块内容   统计-->
+	<div id="Div_modulecontent1" class="Div_modulecontent">
+		<div id="enginestatetitle" class="enginestate">返修车概况</div>
+		<div id="enginenum" class="enginestate">
+			<p><span class="enginestateindes">总计：</span>               <span id="TotalQuantity"></span> 
+			<span class="enginestateindes">&nbsp&nbsp&nbsp待返修：</span> <span id="WaitReworkQuantity"></span>  
+			<span class="enginestateindes">&nbsp&nbsp&nbsp返修中：</span> <span id="OnReworkQuantity"></span> 
+			<span class="enginestateindes">&nbsp&nbsp&nbsp待冷试：</span> <span id="WaitCTQuantity"></span> 
+			<span class="enginestateindes">&nbsp&nbsp&nbsp待热试：</span> <span id="WaitHTQuantity"></span>    
+			</p>
+		 </div>
+		
+		<div id="engineproblemnum" class="enginestate">
+				<canvas id ="myCanvas"  style="border:1px solid #d3d3d3;" ></canvas>
+				
+		</div>
+		
+		<div id="enginetypenum" class="enginestate">
+				<canvas id ="myCanvas2"  style="border:1px solid #d3d3d3;" ></canvas>
+				
+		</div>
+	</div>
+<!--模块内容    表格-->
+<div id="Div_modulecontent2"  class="Div_modulecontent">
+		<div id="enginelisttitle" class="enginelist">返修车列表</div>
+		<div id="enginelistcontent" class="enginelist" >
+			<center>
+			<form id="form1" name="form1" method="post" action="">  
+				<table width="800" border="0" cellpadding="0" cellspacing="0" class="showTable0">  
+				    <tr>  
+				      <td  class="showTableNo"><input type="checkbox" name="checkbox" value="checkbox" /></td>  
+				      <td  class="showTableNum" EditType="TextBox" style="font-weight:bold;">序号</td>  
+				      <td  class="showTableTime" EditType="TextBox"style="font-weight:bold;">时间</td>
+				      <td  class="showTableType" EditType="DropDownList" style="font-weight:bold;"DataItems="{text:'2740108407',value:'2740108407'},{text:'2740105608',value:'2740105608'},{text:'2700101903',value:'2700101903'},{text:'2700102003',value:'2700102003'}">机型</td>  
+				      <td  class="showTableID" EditType="TextBox"style="font-weight:bold;">发动机号</td>  
+				      <td  class="showTableProblem" EditType="TextBox"style="font-weight:bold;">返修原因</td>  
+				      <td  class="showTablePosition" EditType="TextBox"style="font-weight:bold;">位置</td>  
+				      <td  class="showTablePriority" EditType="TextBox"style="font-weight:bold;">优先级</td>  
+                      <td  class="showTableAddButton" style="font-weight:bold;"><a style='text-decoration:none;' href='javascript:;' id="addButton">添加&nbsp;</a></td>  
+				    </tr>  		   
+				</table>  		  
+				<br />  
+			</form> 
+            <input type="button" name="Submit" value="新增"   onclick="window.open('InputData.html','_self')" />  
+			<input type="button" name="Submit2" value="删除"  onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
+			<input type="button" name="Submit22" value="重置" onclick="window.location.reload()" />  
+			<input type="submit" name="Submit3" value="返修"  id="ChangeToReoworkButton" />  
+			</center> 		  
+			
+		</div>
+		<div id="ShowReworkStationSlelectionDIV" class="OverLayDIV"></div><!-- 隐藏div -->
+
+</div>
+
+<!--模块内容    位置分布-->
+	<div id="Div_modulecontent3"  class="Div_modulecontent">
+		<div id="enginepositiontitle" class="engineposition">返修车分布</div>
+		<div id="enginepositioncontent" class="engineposition" >
+			<center>
+			<form id="form1" name="form1" method="post" action="">  
+				<table width="698" border="0" cellpadding="0" cellspacing="0" id="tabProduct">  
+				    <tr>  
+				      <td width="120" height="30" align="center" bgcolor="#EFEFEF" Name="contumn1" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 6&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton6"/></td>  
+				      <td width="120" align="center" bgcolor="#EFEFEF" Name="contumn2" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 4&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton4"/></td>
+				      <td width="120" align="center" bgcolor="#EFEFEF" Name="contumn3" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 2&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton2"/></td>  	
+				      </tr>  
+				    <tr>
+				      <td align="center" height="30" bgcolor="#FFFFFF" id="ReworkStation6"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation4"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation2"></td>  		      
+				    </tr> 
+				    <tr>  
+				      <td width="120" height="30" align="center" bgcolor="#EFEFEF" Name="contumn4" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 5&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton5"/></td>  
+				      <td width="120" align="center" bgcolor="#EFEFEF" Name="contumn5" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 3&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton3"/></td>  
+				      <td width="120" align="center" bgcolor="#EFEFEF" Name="contumn5" EditType="TextBox"style="font-weight:bold;">&nbsp&nbsp&nbsp&nbsp返修台 1&nbsp&nbsp<img src="icon/PAUSE.png" id="ReworkFinishButton1"/></td>  
+				    </tr> 
+				    <tr>
+				      <td align="center" height="30" bgcolor="#FFFFFF" id="ReworkStation5"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation3"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation1"></td>  		      
+				    </tr> 				   			    
+				</table> 				
+				<br /> <br /> 	
+				<table width="698" border="0" cellpadding="0" cellspacing="0" id="tabProduct">  
+				    <tr>  
+				      <td width="30" height="30" align="center" bordercolor="" bgcolor="#EFEFEF" Name="contumn1" EditType="TextBox"style="font-weight:bold;"></td>
+				      <td width="80" align="center" bgcolor="#EFEFEF" Name="contumn1" EditType="TextBox"style="font-weight:bold;">1</td>  
+				      <td width="80" align="center" bgcolor="#EFEFEF" Name="contumn2" EditType="TextBox"style="font-weight:bold;">2</td>
+				      <td width="80" align="center" bgcolor="#EFEFEF" Name="contumn3" EditType="TextBox"style="font-weight:bold;">3</td>  
+				      <td width="80" align="center" bgcolor="#EFEFEF" Name="contumn4" EditType="TextBox"style="font-weight:bold;">4</td>  
+				      <td width="80" align="center" bgcolor="#EFEFEF" Name="contumn5" EditType="TextBox"style="font-weight:bold;">5</td>  
+				    </tr>  
+				    <tr>
+				      <td width="30" height="30" align="center" bgcolor="#EFEFEF" Name="Line1" EditType="TextBox"style="font-weight:bold;">1</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation11"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation12"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation13"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation14"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation15"></td>  				      
+				    </tr> 
+				    <tr>
+				      <td width="30" height="30"align="center" bgcolor="#EFEFEF" Name="Line2" EditType="TextBox"style="font-weight:bold;">2</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation21"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation22"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation23"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation24"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation25"></td>  				      
+				    </tr> 
+				    <tr>
+				      <td width="30" height="30"align="center" bgcolor="#EFEFEF" Name="Line3" EditType="TextBox"style="font-weight:bold;">3</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation31"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation32"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation33"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation34"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation35"></td>  				      
+				    </tr> 
+				    <tr>
+				      <td width="30" height="30" align="center" bgcolor="#EFEFEF" Name="Line4" EditType="TextBox"style="font-weight:bold;">4</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation41"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation42"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation43"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation44"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation45"></td>   				      
+				    </tr> 
+				    <tr>
+				      <td width="30" height="30" align="center" bgcolor="#EFEFEF" Name="Line5" EditType="TextBox"style="font-weight:bold;">5</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation51"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation52"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation53"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation54"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation55"></td>  				      
+				    </tr> 	
+				    <tr>
+				      <td width="30" height="30" align="center" bgcolor="#EFEFEF" Name="Line5" EditType="TextBox"style="font-weight:bold;">6</td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation61"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation62"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation63"></td>  
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation64"></td>   
+				      <td align="center" bgcolor="#FFFFFF" id="ReworkStation65"></td>  				      
+				    </tr> 			    
+				</table>  		  
+				<br />  
+				<!--<input type="button" name="Submit" value="录入"   onclick="AddRow(document.getElementById('tabProduct'),1)" /> -->
+                <input type="button" name="Submit" value="录入"   onclick="window.open('InputData.html','_self')" />  
+				<input type="button" name="Submit2" value="删除"  onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
+				<input type="button" name="Submit22" value="重置" onclick="window.location.reload()" />  
+			</form> 
+			</center> 		  
+		</div>		
+	</div>
+<!-- build:js scripts/histogram/ConnPHP.js -->
+<!-- bower:js -->
+
+<script type="text/javascript" src="scripts/ConnPHP.js"></script>
+<script type="text/javascript" src="scripts/aa/a.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+<!-- 	<script type="text/javascript" src="Lib/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="Scripts/histogram/quickwin.verticalbar.js" ></script>
+    <script type="text/javascript" src="Scripts/histogram/quickwin.horizontalbar.js" ></script>
+    <script type="text/javascript" src="Scripts/histogram/quickwin.histogram.js" ></script>
+    <script type="text/javascript" src="Scripts/piechart/data.js" ></script>
+    <script type="text/javascript" src="Scripts/piechart/quickwin.piechart.js" ></script>
+    <script type="text/javascript" src="ConnPHP.js" ></script>
+    <script type="text/javascript" src="Scripts/ReworkOngoing.js" ></script>
+    <script type="text/javascript" src="Scripts/EngineStateStatistic.js" ></script> -->
+	<script type="text/javascript">
+		    var c = document.getElementById('myCanvas');
+		    var ctx = c.getContext('2d');
+			// var data1=new DataChoose();
+			// var data2=data1.draw();
+			// alert('data2:\n'+JSON.stringify(data2));	
+			AA();		    
+		    var v = new histogram(ctx, jasonData1,5);  
+		    v.draw();
+
+		    var c2 = document.getElementById("myCanvas2");
+		    var ctx2 = c2.getContext("2d");    
+		    var v2 = new piechart(ctx2, jsonData2, 75);
+		    v2.draw();
+
+		    //加载统计总数
+		    CaculateStateQuantity();
+
+
+	</script>	
+
+
+
+</body>
+</html>
